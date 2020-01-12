@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Flowchart</title>
+    <link rel="stylesheet" href="./css/style.css">
+    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css"> -->
+    <link rel="stylesheet" href="./css/uikit.min.css" />
+</head>
+<body>
+    <script src="./js/jsplumb.min.js"></script>   
+    <script src="./js/uikit.min.js"></script>
+    <script src="./js/uikit-icons.min.js"></script> 
+
+<nav id="toolbar" class="uk-navbar-container"  uk-navbar>
+    <div class="uk-navbar-left">
+        <button class="blank uk-button uk-button-default uk-button-small"><span uk-icon="icon: file-edit"></span></button>
+        <button class="export uk-button uk-button-default uk-button-small"><span uk-icon="icon: cloud-download"></span></button>
+        <span class="filename uk-text-light uk-text-large uk-padding-small uk-padding-remove-top uk-padding-remove-bottom uk-text-truncate" contenteditable="true">botflow</span>
+    </div>
+    <div class="uk-navbar-center">
+        <button class="add uk-button uk-button-default uk-button-small"><span uk-icon="icon: plus"></span></button>
+        <button class="delete uk-button uk-button-default uk-button-small"><span uk-icon="icon: close"></span></button>
+    </div>
+    <div class="uk-navbar-right">
+        <button class="codeview uk-button uk-button-default uk-button-small"><span uk-icon="icon: code"></span></button>
+    </div>
+
+    <!-- <button class="blank left"><i class="fas fa-file"></i></button>
+    <button class="export left"><i class="fas fa-save"></i></button>
+    <button class="add left"><i class="fas fa-plus-square"></i></button>
+    <button class="delete left"><i class="fas fa-times"></i></button>
+    <button class="codeview right"><i class="fas fa-align-left"></i></button> -->
+    <!-- <button class="zoomIn left"><i class="fas fa-search-plus"></i></button>
+    <button class="zoomOut left"><i class="fas fa-search-minus"></i></button> -->
+</nav>
+<div id="workspace">
+    <div class="" id="canvas">
+        <div class="node" style="top: 100px; left: 100px;"><span>Какая карта вам нужна?</span><div class="uk-badge uk-label uk-position-top-right uk-text-small">start</div></div>
+        <!-- <div class="node" id="node1" style="top: 120px; left: 100px;"><span>Как оформить карту?</span></div>
+        <div class="node" id="node2" style="top: 280px; left: 250px;"><span>Какая карта вам нужна?</span></div>
+        <div class="node" id="node3" style="top: 420px;"><span>На какой срок нужен беспроцентный период? sdfa sdfasdfasdf asdf adf asdf asdf</span></div> -->
+    </div>
+</div>
+<div id="zoomToolbar">
+    <div class="info left"></div>
+    <button class="zoomIn right">+</button>
+    <div class="zoomValue right">100%</div>
+    <button class="zoomOut right">-</button>
+</div>
+<pre id="output"></pre>
+    <script src="./js/app.js"></script>    
+</body>
+</html> 
