@@ -42,8 +42,6 @@ export default class Node {
 
         this.instance.draggable(nodeEl);
         nodeEl.addEventListener('dblclick', e => this._editLabel(e));
-
-        //generateJSON();
     }
 
     delete(el) {
@@ -52,7 +50,6 @@ export default class Node {
         } else {
             this.instance.remove(el.id);
         }
-        // generateJSON();
     }
 
     select(el) {

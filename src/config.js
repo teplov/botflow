@@ -51,7 +51,25 @@ const targetEndpoint = {
     dragAllowedWhenFull:false
 };
 
+const toolbar = {
+    blank: document.querySelector('#toolbar .blank'),
+    add: document.querySelector('#toolbar .add'),
+    delete: document.querySelector('#toolbar .delete'),
+    export: document.querySelector('#toolbar .export'),
+    codeview: document.querySelector('#toolbar .codeview'),
+    zoomIn: document.querySelector('#zoomToolbar .zoomIn'),
+    zoomValue: document.querySelector('#zoomToolbar .zoomValue'),
+    zoomOut: document.querySelector('#zoomToolbar .zoomOut'),
+    info: document.querySelector('#zoomToolbar .info'),
+};
+
+const panel = {
+    output: document.querySelector('#output'),
+}
+
 export default {
     sourceEndpoint,
-    targetEndpoint
+    targetEndpoint,
+    toolbar,
+    panel
 };
