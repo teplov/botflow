@@ -226,3 +226,14 @@ BODY {
 .boolean { color: blue; }
 .null { color: magenta; }
 .key { color: brown; }  
+
+
+.uk-label {
+    height: 14px;
+    font-size: 9px;
+    line-height: 14px;
+    bottom:0px;
+    border-radius: 0px;
+    border-top-right-radius: 4px;
+    padding: 0 4px;
+}

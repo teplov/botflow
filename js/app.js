@@ -1,15 +1,20 @@
-const repaint = (instance) => {
-    const connectorStyle = {
-        deleteEndpointsOnDetach: true,
-        anchor: [ "Continuous", { faces:["top", "bottom"], cssClass:"anchor", hoverClass:"anchorHover" }],
-        connector: [ "Flowchart", { curviness:1, cssClass:"connector" } ],
-        endpoint: [ "Dot", { radius: 5, cssClass:"endpoint", hoverClass:"endpointHover" } ]
-    };
-    const nodes = instance.getSelector(".node");
-    instance.makeSource(nodes, connectorStyle);
-    instance.makeTarget(nodes, connectorStyle);
+import Node from '../src/Node.js';
+import Connector from '../src/Connector.js';
 
+
+
+const toolbar = {
+    blank: document.querySelector('#toolbar .blank'),
+    add: document.querySelector('#toolbar .add'),
+    delete: document.querySelector('#toolbar .delete'),
+    export: document.querySelector('#toolbar .export'),
+    codeview: document.querySelector('#toolbar .codeview'),
+    zoomIn: document.querySelector('#zoomToolbar .zoomIn'),
+    zoomValue: document.querySelector('#zoomToolbar .zoomValue'),
+    zoomOut: document.querySelector('#zoomToolbar .zoomOut'),
+    info: document.querySelector('#zoomToolbar .info'),
 };
+
 
 const connectorPaintStyle = {
     strokeWidth: 3,
@@ -65,8 +70,8 @@ const targetEndpoint = {
 
 
 jsPlumb.ready(() => {
-
-    const canvas = document.getElementById('canvas');
+    
+    window.canvas = document.getElementById('canvas');
     let zoom = 1;
     
     const instance = window.jsp = jsPlumb.getInstance({
@@ -74,51 +79,70 @@ jsPlumb.ready(() => {
         Container: "canvas"
     });
     
+    const node = new Node(instance);
+    const conn = new Connector(instance);
+    
     let nodeCount = instance.getSelector(".node").length || 0;
     //if (nodeCount) repaint(instance);
 
 
-    const addEndpoints = (toId, sourceAnchors, targetAnchors) => {
-        for (let i = 0; i < sourceAnchors.length; i++) {
-            const sourceUUID = toId + sourceAnchors[i];
-            instance.addEndpoint(toId, sourceEndpoint, { anchor: sourceAnchors[i], uuid: sourceUUID, connectionsDetachable: false });
-        }
-        for (let j = 0; j < targetAnchors.length; j++) {
-            const targetUUID = toId + targetAnchors[j];
-            instance.addEndpoint(toId, targetEndpoint, { anchor: targetAnchors[j], uuid: targetUUID, connectionsDetachable: true });
-        }
-    };
+    // const addEndpoints = (toId, sourceAnchors, targetAnchors) => {
+    //     for (let i = 0; i < sourceAnchors.length; i++) {
+    //         const sourceUUID = toId + sourceAnchors[i];
+    //         instance.addEndpoint(toId, sourceEndpoint, { anchor: sourceAnchors[i], uuid: sourceUUID, connectionsDetachable: false });
+    //     }
+    //     for (let j = 0; j < targetAnchors.length; j++) {
+    //         const targetUUID = toId + targetAnchors[j];
+    //         instance.addEndpoint(toId, targetEndpoint, { anchor: targetAnchors[j], uuid: targetUUID, connectionsDetachable: true });
+    //     }
+    // };
     
-    const newNode = (x, y) => {
-        nodeCount++;
-        const d = document.createElement("div");
-        const s = document.createElement('span');
-        var id = jsPlumbUtil.uuid();
-        d.className = "node";
-        d.id = id;
-        s.innerText = `Double click to edit`;
-        //d.innerHTML = id.substring(0, 7) + "<div class=\"ep\"></div>";
-        d.style.left = `${x}px`;
-        d.style.top = `${y}px`;
-        d.appendChild(s);
-        instance.getContainer().appendChild(d);
-        addEndpoints(id, ['BottomCenter'], ["TopCenter"]);
-        instance.draggable(d);
-        //initNode(d);
-        //return d;
+    // const newNode = (x, y) => {
+    //     nodeCount++;
+    //     const d = document.createElement("div");
+    //     const s = document.createElement('span');
+    //     const l = document.createElement('div');
+    //     var id = jsPlumbUtil.uuid();
+    //     d.className = "node";
+    //     d.id = id;
+    //     s.innerText = `Double click to edit`;
+    //     //d.innerHTML = id.substring(0, 7) + "<div class=\"ep\"></div>";
+    //     d.style.left = `${x}px`;
+    //     d.style.top = `${y}px`;
+    //     d.appendChild(s);
+    //     //initNode(d);
+    //     //return d;
 
-        d.addEventListener('dblclick', (e) => {
-            e.stopPropagation();
-            if (e.target.tagName == 'SPAN') {
-                const label = prompt('Текст узла', e.target.innerText);
-                //e.target.contentEditable = true;
-                if (label) e.target.innerText = label;
-                instance.repaintEverything();
-            }
-        });
+    //     const nodeExist = canvas.querySelectorAll('.node').length;
 
-        generateJSON();
-    };
+    //     if(!nodeExist) {
+    //         l.innerText = `start`;
+    //         l.classList.add('uk-badge', 'uk-label', 'uk-position-top-right', 'uk-text-small');
+    //         d.dataset.start = true;
+    //         d.appendChild(l);
+    //         instance.getContainer().appendChild(d);
+    //         addEndpoints(id, ['BottomCenter'], []);
+    //     } else {
+    //         instance.getContainer().appendChild(d);
+    //         addEndpoints(id, ['BottomCenter'], ["TopCenter"]);
+    //     }
+
+        
+    //     instance.draggable(d);
+       
+
+    //     d.addEventListener('dblclick', (e) => {
+    //         e.stopPropagation();
+    //         if (e.target.tagName == 'SPAN') {
+    //             const label = prompt('Текст узла', e.target.innerText);
+    //             //e.target.contentEditable = true;
+    //             if (label) e.target.innerText = label;
+    //             instance.repaintEverything();
+    //         }
+    //     });
+
+    //     generateJSON();
+    // };
     
     //instance.connect({ source: "flowchartWindow1", target: "flowchartWindow2" }, connectorStyle);
     //instance.draggable(canvas, { grid:[20,20] });
@@ -133,93 +157,52 @@ jsPlumb.ready(() => {
     });
 
     instance.bind("click", (i, e) => {
-        console.log(i);
-        //instance.deleteConnection(i);
-        //instance.remove(i.id);
-        //instance.select({scope: i.scope}).setPaintStyle({ stroke:"#000", strokeWidth:3 });
-        instance.getConnections().forEach(conn => {
-            conn.setPaintStyle({ stroke:"#000", strokeWidth:3  });
-        });
-        i.setPaintStyle({ stroke:"#1e87f0", strokeWidth:3  });
-        // instance.selectEndpoints().forEach(point => {
-        //     point.setPaintStyle({ fill:"#000", strokeWidth:2, stroke: "#fff" });
-        // });
-        instance.selectEndpoints().setPaintStyle({ fill:"#000", strokeWidth:2, stroke: "#fff" });
-        instance.selectEndpoints({source: i.sourceId}).setPaintStyle({ fill:"#1e87f0", strokeWidth:2, stroke: "#fff" });
-        instance.selectEndpoints({target: i.targetId}).setPaintStyle({ fill:"#1e87f0", strokeWidth:2, stroke: "#fff" });
-        //instance.selectEndpoints({source: i.sourceId}).setPaintStyle({ fill:"#1e87f0", strokeWidth:2, stroke: "#fff" });
+        conn.select(i);
         toolbar.info.innerText = `Connection: ${i.sourceId} -> ${i.targetId}`;
     });
 
     instance.bind("connection", (i, c) => {
-            i.connection.setData('data');
-            console.log("connection", i.connection.getData());
-            //i.connection.addOverlay(["Label", { label: 'Suggest', location:0.5, cssClass: "connLabel"} ]);
-            i.connection.setLabel('Suggest');
-            // d.addEventListener('dblclick', (e) => {
-            //     e.stopPropagation();
-            //     if (e.target.tagName == 'SPAN') {
-            //         const label = prompt('Текст узла', e.target.innerText);
-            //         //e.target.contentEditable = true;
-            //         e.target.innerText = label;
-            //         instance.repaintEverything();
-            //     }
-            // });
-            generateJSON();
+            conn.create(i, 'Кнопка');
+            //generateJSON();
     });
 
     instance.on(canvas, "dblclick", (e) => {
         // проверяем, что кликаем по пустому холсту, а не по элементам
         if (e.target.id == canvas.id) {
-            newNode(e.offsetX, e.offsetY);
+            node.create(e.offsetX, e.offsetY);
         }
     });
 
-    // instance.on(canvas, "click", (e) => {
-    //     let node = null;
-    //     if (e.target.classList.contains('node')) node = e.target;
-    //     if (e.target.parentNode.classList.contains('node')) node = e.target.parentNode;
-
-    //     canvas.querySelectorAll('.selected').forEach(el => {
-    //         el.classList.remove('selected');
-    //     });
-
-    //     node && node.classList.toggle('selected');
-    //     if (node)  {
-    //         toolbar.info.innerText = `Node id: ${node.id}`;
-    //     } else {
-    //         toolbar.info.innerText = '';
-    //     }
-    // });
-
     canvas.addEventListener('click', (e) => {
-     let node = null;
-        if (e.target.classList.contains('node')) node = e.target;
-        if (e.target.parentNode.classList.contains('node')) node = e.target.parentNode;
+        node.select(e.target);
 
-        canvas.querySelectorAll('.selected').forEach(el => {
-            el.classList.remove('selected');
-        });
+        // let node = null;
+        // if (e.target.classList.contains('node')) node = e.target;
+        // if (e.target.parentNode.classList.contains('node')) node = e.target.parentNode;
 
-        e.stopPropagation();
+        // canvas.querySelectorAll('.selected').forEach(el => {
+        //     el.classList.remove('selected');
+        // });
+
+        // e.stopPropagation();
 
        // toolbar.info.innerText = '';
-        node && node.classList.toggle('selected');
-        if (node)  {
-            toolbar.info.innerText = `Node id: ${node.id}`;
-            instance.selectEndpoints().setPaintStyle({ fill:"#000", strokeWidth:2, stroke: "#fff" });
-            instance.getConnections().forEach(conn => {
-                conn.setPaintStyle({ stroke:"#000", strokeWidth:3  });
-            });
-        } 
+        //node && node.classList.toggle('selected');
+        // if (node)  {
+        //     toolbar.info.innerText = `Node id: ${node.id}`;
+        //     instance.selectEndpoints().setPaintStyle({ fill:"#000", strokeWidth:2, stroke: "#fff" });
+        //     instance.getConnections().forEach(conn => {
+        //         conn.setPaintStyle({ stroke:"#000", strokeWidth:3  });
+        //     });
+        // } 
 
-        if (e.target.id == canvas.id) {
-            toolbar.info.innerText = null;
-            instance.selectEndpoints().setPaintStyle({ fill:"#000", strokeWidth:2, stroke: "#fff" });
-            instance.getConnections().forEach(conn => {
-                conn.setPaintStyle({ stroke:"#000", strokeWidth:3  });
-            });
-        }
+        // if (e.target.id == canvas.id) {
+        //     toolbar.info.innerText = null;
+        //     instance.selectEndpoints().setPaintStyle({ fill:"#000", strokeWidth:2, stroke: "#fff" });
+        //     instance.getConnections().forEach(conn => {
+        //         conn.setPaintStyle({ stroke:"#000", strokeWidth:3  });
+        //     });
+        // }
     });
 
     const generateJSON = () => {
@@ -228,6 +211,7 @@ jsPlumb.ready(() => {
             exportJSON[el.id] = {
                 id: el.id,
                 text: el.firstChild.innerText,
+                type: el.dataset.start ? 'start' : 'step',
                 suggestions: [],
                 x: parseInt(el.style.left, 10),
                 y: parseInt(el.style.top, 10),
@@ -252,14 +236,18 @@ jsPlumb.ready(() => {
     });
 
     toolbar.add.addEventListener('click', (e) => {
-        newNode(20, 20);
+        //newNode(20, 20);
+        node.create(20, 20);
     });
 
     toolbar.delete.addEventListener('click', (e) => {
         canvas.querySelectorAll('.selected').forEach(el => {
-            instance.remove(el.id);
-        });
-        generateJSON();
+        //     !el.dataset.start && instance.remove(el.id);
+        //     el.dataset.start && alert('Нельзя удалять стартовый узел');
+            node.delete(el);
+         });
+        // generateJSON();
+        
     });
 
     toolbar.export.addEventListener('click', (e) => {
@@ -306,18 +294,6 @@ jsPlumb.ready(() => {
       };
 });
 
-
-const toolbar = {
-    blank: document.querySelector('#toolbar .blank'),
-    add: document.querySelector('#toolbar .add'),
-    delete: document.querySelector('#toolbar .delete'),
-    export: document.querySelector('#toolbar .export'),
-    codeview: document.querySelector('#toolbar .codeview'),
-    zoomIn: document.querySelector('#zoomToolbar .zoomIn'),
-    zoomValue: document.querySelector('#zoomToolbar .zoomValue'),
-    zoomOut: document.querySelector('#zoomToolbar .zoomOut'),
-    info: document.querySelector('#zoomToolbar .info'),
-};
 
 function syntaxHighlight(json) {
     if (typeof json != 'string') {
