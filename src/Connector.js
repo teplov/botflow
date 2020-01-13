@@ -8,7 +8,7 @@ export default class Connector extends Node {
         this.canvas = window.canvas || document.querySelector('#canvas');
     }
 
-    create(connector, label = 'Suggest') {
+    create(connector, label = this.lang.connectorLabelDefault) {
         connector.connection.setLabel(label);
     }
 
@@ -17,6 +17,10 @@ export default class Connector extends Node {
         connector.setPaintStyle({ stroke:"#1e87f0", strokeWidth:3 });
         this.instance.selectEndpoints({source: connector.sourceId}).setPaintStyle({ fill:"#1e87f0", strokeWidth:2, stroke: "#fff" });
         this.instance.selectEndpoints({target: connector.targetId}).setPaintStyle({ fill:"#1e87f0", strokeWidth:2, stroke: "#fff" });
+    }
+
+    delete() {
+
     }
 
     _deselect() {

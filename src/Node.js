@@ -5,6 +5,7 @@ export default class Node {
         this.node;
         this.instance = instance;
         this.canvas = window.canvas || document.querySelector('#canvas');
+        this.lang = window.lang;
         this.count = 0;
     }
 
@@ -12,7 +13,7 @@ export default class Node {
         return this.count;
     }
 
-    create(x, y) {
+    create(x, y, label = this.lang.nodeLabelDefault) {
         this.count++;
         const nodeEl = document.createElement("div");
         const nodeLabel = document.createElement('span');
@@ -20,7 +21,7 @@ export default class Node {
         const id = jsPlumbUtil.uuid();
         nodeEl.className = "node";
         nodeEl.id = id;
-        nodeLabel.innerText = `Double click to edit`;
+        nodeLabel.innerText = label;
         nodeEl.style.left = `${x}px`;
         nodeEl.style.top = `${y}px`;
         nodeEl.appendChild(nodeLabel);
@@ -29,7 +30,7 @@ export default class Node {
 
         // для первого узла ставим признак стартового узла
         if(!nodeExist) {
-            nodeMarker.innerText = `start`;
+            nodeMarker.innerText = this.lang.nodeMarkerStart;
             nodeMarker.classList.add('uk-badge', 'uk-label', 'uk-position-top-right', 'uk-text-small');
             nodeEl.dataset.start = true;
             nodeEl.appendChild(nodeMarker);

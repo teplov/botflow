@@ -67,9 +67,23 @@ const panel = {
     output: document.querySelector('#output'),
 }
 
+const lang = {
+    'EN': {
+        nodeLabelDefault: 'Double click to edit',
+        connectorLabelDefault: 'Suggest',
+        nodeMarkerStart: 'START'
+    },
+    'RU': {
+        nodeLabelDefault: 'Кликни дважды для правки',
+        connectorLabelDefault: 'Кнопка',
+        nodeMarkerStart: 'НАЧАЛО'
+    }
+};
+
 export default {
     sourceEndpoint,
     targetEndpoint,
     toolbar,
-    panel
+    panel,
+    lang
 };

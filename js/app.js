@@ -1,3 +1,4 @@
+import Config from '../src/config.js';
 import Node from '../src/Node.js';
 import Connector from '../src/Connector.js';
 import Report from '../src/Report.js';
@@ -7,6 +8,7 @@ const toolbar = {
     add: document.querySelector('#toolbar .add'),
     delete: document.querySelector('#toolbar .delete'),
     export: document.querySelector('#toolbar .export'),
+    lang: document.querySelector('#toolbar .lang'),
     codeview: document.querySelector('#toolbar .codeview'),
     zoomIn: document.querySelector('#zoomToolbar .zoomIn'),
     zoomValue: document.querySelector('#zoomToolbar .zoomValue'),
@@ -18,6 +20,7 @@ const toolbar = {
 jsPlumb.ready(() => {
     
     window.canvas = document.getElementById('canvas');
+    window.lang = Config.lang['EN'];
     let zoom = 1;
     
     const instance = window.jsp = jsPlumb.getInstance({
@@ -42,7 +45,7 @@ jsPlumb.ready(() => {
     });
 
     instance.bind("connection", (i) => {
-            conn.create(i, 'Кнопка');
+            conn.create(i);
             report.create();
     });
 
@@ -88,6 +91,17 @@ jsPlumb.ready(() => {
         if (zoom <= 0) return;
         toolbar.zoomValue.innerText = parseInt(zoom * 100, 10) + '%';
         setZoom(zoom, instance, [0.5, 0.5], canvas);
+    });
+
+    toolbar.lang.addEventListener('click', (e) => {
+        window.lang = Config.lang['EN'];
+        if (e.target.innerText == 'RU') {
+            window.lang = Config.lang['EN'];
+            e.target.innerText = 'EN';
+        } else {
+            window.lang = Config.lang['RU'];
+            e.target.innerText = 'RU'; 
+        }
     });
     
     toolbar.codeview.addEventListener('click', (e) => {
