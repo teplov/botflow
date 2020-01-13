@@ -55,6 +55,7 @@ const toolbar = {
     blank: document.querySelector('#toolbar .blank'),
     add: document.querySelector('#toolbar .add'),
     delete: document.querySelector('#toolbar .delete'),
+    load: document.querySelector('#toolbar .load'),
     export: document.querySelector('#toolbar .export'),
     codeview: document.querySelector('#toolbar .codeview'),
     zoomIn: document.querySelector('#zoomToolbar .zoomIn'),

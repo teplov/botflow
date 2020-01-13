@@ -28,6 +28,15 @@ export default class Report {
         });
 
         Config.panel.output.innerHTML = this._syntaxHighlight(this.JSON);
+        this.save();
+    }
+
+    get data() {
+        return this.JSON
+    }
+
+    save() {
+        localStorage.setItem('chatbotflow', JSON.stringify(this.JSON));
     }
 
     _syntaxHighlight(json) {
@@ -52,9 +61,9 @@ export default class Report {
        });
     }
 
-    download(data) {
+    download() {
         const element = document.createElement('a');
-        element.setAttribute('href', 'data:application/json;charset=utf-8,' + encodeURIComponent(JSON.stringify(data)));
+        element.setAttribute('href', 'data:application/json;charset=utf-8,' + encodeURIComponent(JSON.stringify(this.data)));
         const filename = prompt('Имя файла', `bot_scenario_` + Date.now());
         
         if (!filename) return;

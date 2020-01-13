@@ -7,6 +7,7 @@ const toolbar = {
     blank: document.querySelector('#toolbar .blank'),
     add: document.querySelector('#toolbar .add'),
     delete: document.querySelector('#toolbar .delete'),
+    load: document.querySelector('#toolbar .load'),
     export: document.querySelector('#toolbar .export'),
     lang: document.querySelector('#toolbar .lang'),
     codeview: document.querySelector('#toolbar .codeview'),
@@ -34,6 +35,23 @@ jsPlumb.ready(() => {
    
     jsPlumb.fire("Loaded", instance);
     instance.setZoom(zoom);
+
+    const loader = () => {
+        let json = localStorage.getItem('chatbotflow');
+        let data = {};
+        if (json) {
+            data = JSON.parse(json);
+            instance.empty(canvas);
+        }
+
+        console.log(data);
+
+        for (let i in data) {
+            const item = data[i];
+            node.load(item.id, item.text, item.type, item.x, item.y);
+        }
+
+    };
 
     instance.bind("dblclick", (i) => {
         conn.editLabel(i);
@@ -74,6 +92,10 @@ jsPlumb.ready(() => {
     toolbar.delete.addEventListener('click', (e) => {
         canvas.querySelectorAll('.selected').forEach(el => node.delete(el));
         report.create();
+    });
+
+    toolbar.load.addEventListener('click', (e) => {
+        loader();
     });
 
     toolbar.export.addEventListener('click', (e) => {
