@@ -6,6 +6,9 @@ export default class Connector extends Node {
         super();
         this.instance = instance;
         this.canvas = window.canvas || document.querySelector('#canvas');
+        // this.instance.registerConnectionTypes({
+        //     "default": { paintStyle: Config.connectorPaintStyle },
+        //   });
     }
 
     create(connector, label = this.lang.connectorLabelDefault) {
@@ -21,6 +24,12 @@ export default class Connector extends Node {
 
     delete() {
 
+    }
+
+    load(source, target, label) {
+        const conn = this.instance.connect({ source, target });
+        conn.setPaintStyle({ stroke:"#000", strokeWidth:3 });
+        conn.setLabel(label);
     }
 
     _deselect() {

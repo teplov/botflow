@@ -24,7 +24,7 @@ const sourceEndpoint = {
         strokeWidth: 2
     },
     isSource: true,
-    isTarget: false,
+    //isTarget: false,
     connector: [ "Flowchart", { cornerRadius: 5, gap: 8 } ],
     maxConnections: -1,
     reattachConnections: false,
@@ -47,7 +47,7 @@ const targetEndpoint = {
     allowLoopback: false,
     //dropOptions: { hoverClass: "hover", activeClass: "active" },
     isTarget: true,
-    isSource: false,
+    //isSource: false,
     dragAllowedWhenFull:false
 };
 

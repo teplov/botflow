@@ -26,7 +26,17 @@ jsPlumb.ready(() => {
     
     const instance = window.jsp = jsPlumb.getInstance({
         DragOptions: { cursor: 'pointer', zIndex: 2000, grid: [20, 20] },
-        Container: "canvas"
+        Container: "canvas",
+        Connector: [ "Flowchart", { cornerRadius: 5, gap: 8, strokeWidth: 3 } ],
+        Endpoint:[ "Dot", { stroke: "#fff", radius: 7, strokeWidth: 2 } ],
+        //Endpoint: Config.targetEndpoint,
+        EndpointStyle : { fillStyle: "#000" },
+        Anchors : [ "BottomCenter", "TopCenter" ],
+        MaxConnections: -1,
+        ReattachConnections: false,
+        ConnectionsDetachable: false,
+        allowLoopback: false,
+        dragAllowedWhenFull:false
     });
     
     const node = new Node(instance);
@@ -51,10 +61,19 @@ jsPlumb.ready(() => {
             node.load(item.id, item.text, item.type, item.x, item.y);
         }
 
+        for (let i in data) {
+            const item = data[i];
+            item.suggestions.forEach((suggest) => {
+                console.log(item.id, suggest.target);
+                conn.load(item.id, suggest.target, suggest.text);
+            });
+        }
+
     };
 
     instance.bind("dblclick", (i) => {
         conn.editLabel(i);
+        report.create();
     });
 
     instance.bind("click", (i) => {
