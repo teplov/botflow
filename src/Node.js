@@ -133,11 +133,13 @@ export default class Node {
     _addEndpoints(toId, sourceAnchors, targetAnchors) {
         for (let i = 0; i < sourceAnchors.length; i++) {
             const sourceUUID = toId + sourceAnchors[i];
-            this.instance.addEndpoint(toId, Config.sourceEndpoint, { anchor: sourceAnchors[i], uuid: sourceUUID, connectionsDetachable: false });
+            //this.instance.makeSource(toId, {maxConnections: -1});
+            this.instance.addEndpoint(toId, Config.sourceEndpoint, { anchor: sourceAnchors[i], uuid: sourceUUID, isSource: true, connectionsDetachable: false });
         }
         for (let j = 0; j < targetAnchors.length; j++) {
             const targetUUID = toId + targetAnchors[j];
-            this.instance.addEndpoint(toId, Config.targetEndpoint, { anchor: targetAnchors[j], uuid: targetUUID, connectionsDetachable: true });
+            //this.instance.makeTarget(toId, {maxConnections: -1});
+            this.instance.addEndpoint(toId, Config.targetEndpoint, { anchor: targetAnchors[j], uuid: targetUUID, isTarget: true, connectionsDetachable: true });
         }
     };
 }

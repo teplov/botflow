@@ -16,6 +16,7 @@ export default class Connector extends Node {
     }
 
     select(connector) {
+        //console.log(connector);
         this._deselect();
         connector.setPaintStyle({ stroke:"#1e87f0", strokeWidth:3 });
         this.instance.selectEndpoints({source: connector.sourceId}).setPaintStyle({ fill:"#1e87f0", strokeWidth:2, stroke: "#fff" });
@@ -26,10 +27,16 @@ export default class Connector extends Node {
 
     }
 
-    load(source, target, label) {
+    load(source, target, label, type) {
         const conn = this.instance.connect({ source, target });
         conn.setPaintStyle({ stroke:"#000", strokeWidth:3 });
         conn.setLabel(label);
+
+        if (type === 'start') {
+            this._addEndpoints(source, ['BottomCenter'], []);
+        } else {
+            this._addEndpoints(source, ['BottomCenter'], ["TopCenter"]);
+        }
     }
 
     _deselect() {
