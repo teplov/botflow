@@ -13,13 +13,17 @@ export default class Connector extends Node {
         connector.connection.setLabel(label);
     }
 
-    select(connector = null) {
-        if (connector) {
+    select(el) {
+        console.log(el);
+        if (this.selected && el.id != this.selected.id && el.tagName != 'path') {
             this._deselect();
-            connector.setPaintStyle({ stroke:"#1e87f0", strokeWidth:3 });
-            this.instance.selectEndpoints({source: connector.sourceId}).setPaintStyle({ fill:"#1e87f0", strokeWidth:2, stroke: "#fff" });
-            this.instance.selectEndpoints({target: connector.targetId}).setPaintStyle({ fill:"#1e87f0", strokeWidth:2, stroke: "#fff" });
-            this.selected = connector;
+        }
+        if (el.connector) {
+            super._deselect();
+            el.setPaintStyle({ stroke:"#1e87f0", strokeWidth:3 });
+            this.instance.selectEndpoints({source: el.sourceId}).setPaintStyle({ fill:"#1e87f0", strokeWidth:2, stroke: "#fff" });
+            this.instance.selectEndpoints({target: el.targetId}).setPaintStyle({ fill:"#1e87f0", strokeWidth:2, stroke: "#fff" });
+            this.selected = el;
         }
     }
 
@@ -43,7 +47,7 @@ export default class Connector extends Node {
         this.instance.getConnections().forEach(conn => conn.setPaintStyle({ stroke:"#000", strokeWidth:3 }));
         this.instance.selectEndpoints().setPaintStyle({ fill:"#000", strokeWidth:2, stroke: "#fff" });
         this.selected = null;
-        super._deselect();
+        //super._deselect();
     }
 
     editLabel(connector) {

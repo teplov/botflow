@@ -109,7 +109,7 @@ jsPlumb.ready(() => {
 
     canvas.addEventListener('click', (e) => { 
         node.select(e.target);
-        //conn.select();
+        conn.select(e.target);
     });
 
     toolbar.blank.addEventListener('click', (e) => {
