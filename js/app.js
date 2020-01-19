@@ -38,6 +38,7 @@ jsPlumb.ready(() => {
         //isTarget: true,
         //ReattachConnections: false,
         ConnectionsDetachable: false,
+        deleteEndpointsOnDetach:true,
         //allowLoopback: false,
         //dragAllowedWhenFull:false
     });
@@ -57,7 +58,7 @@ jsPlumb.ready(() => {
             instance.empty(canvas);
         }
 
-        console.log(data);
+        //console.log(data);
 
         for (let i in data) {
             const item = data[i];
@@ -85,13 +86,17 @@ jsPlumb.ready(() => {
     });
 
     instance.bind("connection", (i, e) => {
-        !!e && instance.getConnections().forEach(conn =>{
-            console.log(conn.sourceId, conn.targetId);
-            console.log(i.sourceId, i.targetId);
-            if (conn.sourceId + conn.targetId === i.sourceId + i.targetId) return;
-        });
-            conn.create(i);
-            report.create();
+        conn.create(i);
+        report.create();
+    });
+
+
+    // проверяем, есть ли коннект между нодами, которые пытается соединить юзер
+    instance.bind('beforeDrop', (i,e) => {
+        // ищем все коннекты между двумя узлами
+        const arr=instance.select({source:i.sourceId,target:i.targetId});
+        // если вернуть false, то коннект не произойдет
+        return !arr.length;
     });
 
     instance.on(canvas, "dblclick", (e) => {
@@ -104,6 +109,7 @@ jsPlumb.ready(() => {
 
     canvas.addEventListener('click', (e) => { 
         node.select(e.target);
+        //conn.select();
     });
 
     toolbar.blank.addEventListener('click', (e) => {
@@ -118,6 +124,7 @@ jsPlumb.ready(() => {
 
     toolbar.delete.addEventListener('click', (e) => {
         canvas.querySelectorAll('.selected').forEach(el => node.delete(el));
+        conn.delete();
         report.create();
     });
 
