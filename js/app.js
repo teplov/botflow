@@ -15,6 +15,7 @@ const toolbar = {
     zoomValue: document.querySelector('#zoomToolbar .zoomValue'),
     zoomOut: document.querySelector('#zoomToolbar .zoomOut'),
     info: document.querySelector('#zoomToolbar .info'),
+    file: document.querySelector('#file'),
 };
 
 
@@ -50,15 +51,15 @@ jsPlumb.ready(() => {
     jsPlumb.fire("Loaded", instance);
     instance.setZoom(zoom);
 
-    const loader = () => {
-        let json = localStorage.getItem('chatbotflow');
+    const loader = (json = null) => {
         let data = {};
+        if (!json) {
+            json = localStorage.getItem('chatbotflow');
+        }
         if (json) {
             data = JSON.parse(json);
             instance.empty(canvas);
         }
-
-        //console.log(data);
 
         for (let i in data) {
             const item = data[i];
@@ -74,6 +75,8 @@ jsPlumb.ready(() => {
         }
 
     };
+
+    loader();
 
     instance.bind("dblclick", (i) => {
         conn.editLabel(i);
@@ -129,7 +132,7 @@ jsPlumb.ready(() => {
     });
 
     toolbar.load.addEventListener('click', (e) => {
-        loader();
+       // loader();
     });
 
     toolbar.export.addEventListener('click', (e) => {
@@ -164,6 +167,19 @@ jsPlumb.ready(() => {
         report.create();
         const output = document.querySelector('#output');
         output.classList.toggle('visible');
+    });
+
+    toolbar.file.addEventListener('change', (e) => {
+        const file = e.target.files[0];
+        const reader = new FileReader();
+        reader.readAsText(file);
+        console.log(file);
+        if (file && file.type === 'application/json' && file.size > 0) {
+            reader.addEventListener("load", (event) => {
+                const jsonData = event.target.result;
+                loader(jsonData);
+            });
+        }
     });
 
     const setZoom = (zoom, instance, transformOrigin, el) => {

@@ -238,3 +238,8 @@ BODY {
     padding: 0 4px;
     background-color: #1976d3;
 }
+
+
+#hidden {
+    visibility: hidden;
+}
