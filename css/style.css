@@ -198,7 +198,8 @@ BODY {
     right: 0;
     top: 40px;
     bottom: 20px;
-    width: 450px;
+    width: 100vw;
+    max-width: 450px;
     z-index: 2;
     overflow: scroll;
     /* outline: 1px solid #ccc;  */

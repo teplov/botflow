@@ -152,16 +152,16 @@ jsPlumb.ready(() => {
         setZoom(zoom, instance, [0.5, 0.5], canvas);
     });
 
-    toolbar.lang.addEventListener('click', (e) => {
-        window.lang = Config.lang['EN'];
-        if (e.target.innerText == 'RU') {
-            window.lang = Config.lang['EN'];
-            e.target.innerText = 'EN';
-        } else {
-            window.lang = Config.lang['RU'];
-            e.target.innerText = 'RU'; 
-        }
-    });
+    // toolbar.lang.addEventListener('click', (e) => {
+    //     window.lang = Config.lang['EN'];
+    //     if (e.target.innerText == 'RU') {
+    //         window.lang = Config.lang['EN'];
+    //         e.target.innerText = 'EN';
+    //     } else {
+    //         window.lang = Config.lang['RU'];
+    //         e.target.innerText = 'RU'; 
+    //     }
+    // });
     
     toolbar.codeview.addEventListener('click', (e) => {
         report.create();
