@@ -242,5 +242,5 @@ BODY {
 
 
 #hidden {
-    visibility: hidden;
+    display: none;
 }

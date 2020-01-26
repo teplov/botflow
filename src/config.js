@@ -81,10 +81,16 @@ const lang = {
     }
 };
 
+const modalEl = {
+    window: '#modal-sections',
+    saveButton: document.querySelector('#editor_save')
+};
+
 export default {
     sourceEndpoint,
     targetEndpoint,
     toolbar,
     panel,
-    lang
+    lang,
+    modalEl
 };

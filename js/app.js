@@ -47,6 +47,17 @@ jsPlumb.ready(() => {
     const node = new Node(instance);
     const conn = new Connector(instance);
     const report = new Report(instance);
+
+    // UIkit.modal(Config.modalEl.window, {
+    //     'sel-close': '.uk-modal-close, .uk-modal-close-default, .uk-modal-close-outside, .uk-modal-close-full, .uk-modal-save'
+    // });
+
+    window.mdEditor = new SimpleMDE({ 
+        element: document.getElementById("mde"),
+        status: false,
+        spellChecker: false,
+        toolbar: ["bold", "italic", "|", "quote", "link", "image", "|", "preview", "guide"], 
+    });
    
     jsPlumb.fire("Loaded", instance);
     instance.setZoom(zoom);
@@ -196,5 +207,7 @@ jsPlumb.ready(() => {
         el.style["transform"] = s;
         instance.setZoom(zoom);    
       };
+
+    
 });
 

@@ -13,40 +13,6 @@ export default class Node {
         return this.count;
     }
 
-    // create(x, y, label = this.lang.nodeLabelDefault) {
-    //     this.count++;
-    //     const nodeEl = document.createElement("div");
-    //     const nodeLabel = document.createElement('span');
-    //     const nodeMarker = document.createElement('div');
-    //     const id = jsPlumbUtil.uuid();
-    //     nodeEl.className = "node";
-    //     nodeEl.id = id;
-    //     nodeLabel.innerText = label;
-    //     nodeEl.style.left = `${x}px`;
-    //     nodeEl.style.top = `${y}px`;
-    //     nodeEl.appendChild(nodeLabel);
-
-    //     const nodeExist = canvas.querySelectorAll('.node').length;
-
-    //     // для первого узла ставим признак стартового узла
-    //     if(!nodeExist) {
-    //         nodeMarker.innerText = this.lang.nodeMarkerStart;
-    //         nodeMarker.classList.add('uk-badge', 'uk-label', 'uk-position-top-right', 'uk-text-small');
-    //         nodeEl.dataset.start = true;
-    //         nodeEl.appendChild(nodeMarker);
-    //         this.instance.getContainer().appendChild(nodeEl);
-    //         this._addEndpoints(id, ['BottomCenter'], []);
-    //     } else {
-    //         this.instance.getContainer().appendChild(nodeEl);
-    //         this._addEndpoints(id, ['BottomCenter'], ["TopCenter"]);
-    //     }
-
-    //     this._editLabel(nodeLabel);
-
-    //     this.instance.draggable(nodeEl);
-    //     nodeEl.addEventListener('dblclick', e => this._editLabel(e.target));
-    // }
-
     create(x, y, label = this.lang.nodeLabelDefault) {
         const id = jsPlumbUtil.uuid();
         const nodeExist = canvas.querySelectorAll('.node').length;
@@ -120,9 +86,15 @@ export default class Node {
 
     _editLabel(el) {
         if (el.tagName == 'SPAN') {
-            const label = prompt('Текст узла', el.innerText);
-            if (label) el.innerText = label;
-            this.instance.repaintEverything();
+            //const label = prompt('Текст узла', el.innerText);
+            //if (label) el.innerText = label;
+            UIkit.modal(Config.modalEl.window).show();
+            window.mdEditor.value(el.innerText);
+            Config.modalEl.saveButton.addEventListener('click', (e) => {
+                el.innerText = window.mdEditor.value();
+                UIkit.modal(Config.modalEl.window).hide();
+                this.instance.repaintEverything();
+            });
         }
     }
 
