@@ -26,6 +26,9 @@ jsPlumb.ready(() => {
     let zoom = 1;
     
     const instance = window.jsp = jsPlumb.getInstance({
+        Node: null,
+        Conn: null,
+        Report: null,
         DragOptions: { cursor: 'pointer', zIndex: 2000, grid: [20, 20] },
         Container: "canvas",
         Connector: [ "Flowchart", { cornerRadius: 5, gap: 8 } ],
@@ -44,13 +47,9 @@ jsPlumb.ready(() => {
         //dragAllowedWhenFull:false
     });
     
-    const node = new Node(instance);
-    const conn = new Connector(instance);
-    const report = new Report(instance);
-
-    // UIkit.modal(Config.modalEl.window, {
-    //     'sel-close': '.uk-modal-close, .uk-modal-close-default, .uk-modal-close-outside, .uk-modal-close-full, .uk-modal-save'
-    // });
+    instance.Node = new Node(instance);
+    instance.Conn = new Connector(instance);
+    instance.Report = new Report(instance);
 
     window.mdEditor = new SimpleMDE({ 
         element: document.getElementById("mde"),
@@ -74,14 +73,14 @@ jsPlumb.ready(() => {
 
         for (let i in data) {
             const item = data[i];
-            node.load(item.id, item.text, item.type, item.x, item.y);
+            instance.Node.load(item.id, item.text, item.type, item.x, item.y);
         }
 
         for (let i in data) {
             const item = data[i];
             item.suggestions.forEach((suggest) => {
                 //console.log(item.id, suggest.target);
-                conn.load(item.id, suggest.target, suggest.text, item.type);
+                instance.Conn.load(item.id, suggest.target, suggest.text, item.type);
             });
         }
 
@@ -90,18 +89,18 @@ jsPlumb.ready(() => {
     loader();
 
     instance.bind("dblclick", (i) => {
-        conn.editLabel(i);
-        report.create();
+        instance.Conn.editLabel(i);
+        instance.Report.create();
     });
 
     instance.bind("click", (i) => {
-        conn.select(i);
+        instance.Conn.select(i);
         toolbar.info.innerText = `Connection: ${i.sourceId} -> ${i.targetId}`;
     });
 
     instance.bind("connection", (i, e) => {
-        conn.create(i);
-        report.create();
+        instance.Conn.create(i);
+        instance.Report.create();
     });
 
 
@@ -116,30 +115,30 @@ jsPlumb.ready(() => {
     instance.on(canvas, "dblclick", (e) => {
         // проверяем, что кликаем по пустому холсту, а не по элементам
         if (e.target.id == canvas.id) {
-            node.create(e.offsetX, e.offsetY);
-            report.create();
+            instance.Node.create(e.offsetX, e.offsetY);
+            instance.Report.create();
         }
     });
 
     canvas.addEventListener('click', (e) => { 
-        node.select(e.target);
-        conn.select(e.target);
+        instance.Node.select(e.target);
+        instance.Conn.select(e.target);
     });
 
     toolbar.blank.addEventListener('click', (e) => {
         instance.empty(canvas);
-        report.create();
+        instance.Report.create();
     });
 
     toolbar.add.addEventListener('click', (e) => {
-        node.create(20, 20);
-        report.create();
+        instance.Node.create(20, 20);
+        instance.Report.create();
     });
 
     toolbar.delete.addEventListener('click', (e) => {
-        canvas.querySelectorAll('.selected').forEach(el => node.delete(el));
-        conn.delete();
-        report.create();
+        canvas.querySelectorAll('.selected').forEach(el => instance.Node.delete(el));
+        instance.Conn.delete();
+        instance.Report.create();
     });
 
     toolbar.load.addEventListener('click', (e) => {
@@ -147,7 +146,7 @@ jsPlumb.ready(() => {
     });
 
     toolbar.export.addEventListener('click', (e) => {
-        report.download();
+        instance.Report.download();
     });
 
     toolbar.zoomIn.addEventListener('click', (e) => {
@@ -175,7 +174,7 @@ jsPlumb.ready(() => {
     // });
     
     toolbar.codeview.addEventListener('click', (e) => {
-        report.create();
+        instance.Report.create();
         const output = document.querySelector('#output');
         output.classList.toggle('visible');
     });

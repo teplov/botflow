@@ -59,9 +59,11 @@ export default class Node {
             this._addEndpoints(id, ['BottomCenter'], ["TopCenter"]);
         }
 
-        this.instance.draggable(nodeEl);
+        // обновляем report если произошло перемещение node
+        this.instance.draggable(nodeEl, {
+            stop: () => this.instance.Report.create()
+        });
         nodeEl.addEventListener('dblclick', e => this._editLabel(e.target));
-
         return nodeEl
     }
 
@@ -93,6 +95,7 @@ export default class Node {
             Config.modalEl.saveButton.addEventListener('click', (e) => {
                 el.innerText = window.mdEditor.value();
                 UIkit.modal(Config.modalEl.window).hide();
+                this.instance.Report.create();
                 this.instance.repaintEverything();
             });
         }

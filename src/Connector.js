@@ -14,7 +14,7 @@ export default class Connector extends Node {
     }
 
     select(el) {
-        console.log(el);
+        // console.log(el);
         if (this.selected && el.id != this.selected.id && el.tagName != 'path') {
             this._deselect();
         }
