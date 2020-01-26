@@ -63,7 +63,7 @@ jsPlumb.ready(() => {
 
     const loader = (json = null) => {
         let data = {};
-        let filename = 'ChatbotFlow';
+        let filename = Config.appname;
         if (!json) {
             const _parseData = localStorage.getItem('chatbotflow');
             json = _parseData ? _parseData : '{}';
@@ -134,7 +134,7 @@ jsPlumb.ready(() => {
 
     Config.toolbar.blank.addEventListener('click', (e) => {
         instance.empty(canvas);
-        Config.toolbar.filename.innerText = 'ChatbotFlow';
+        Config.toolbar.filename.innerText = Config.appname;
         instance.Report.create();
     });
 
@@ -202,7 +202,7 @@ jsPlumb.ready(() => {
     Config.toolbar.filename.addEventListener('input', (e) => {
         // //localStorage.setItem('chatbotflowFilename', e.target.innerText || 'chatbotflow');
         // let data = instance.Report.data;
-        // data.filename = e.target.innerText || 'ChatbotFlow';
+        // data.filename = e.target.innerText || Config.appname;
         // instance.Report.data = data;
         // console.log(instance.Report.data);
         instance.Report.create();

@@ -9,7 +9,7 @@ export default class Report {
 
     create() {
         this.JSON = {
-            filename: 'ChatbotFlow',
+            filename: Config.appname,
             data: {}
         };
         this.canvas.querySelectorAll('.node').forEach(el => {
@@ -30,7 +30,7 @@ export default class Report {
             });
         });
 
-        this.JSON.filename = Config.toolbar.filename.innerText || 'ChatbotFlow';
+        this.JSON.filename = Config.toolbar.filename.innerText || Config.appname;
         Config.panel.output.innerHTML = this._syntaxHighlight(this.JSON);
         this.save();
     }

@@ -88,11 +88,14 @@ const modalEl = {
     saveButton: document.querySelector('#editor_save')
 };
 
+const appname = 'ChatbotFlow';
+
 export default {
     sourceEndpoint,
     targetEndpoint,
     toolbar,
     panel,
     lang,
-    modalEl
+    modalEl,
+    appname
 };
