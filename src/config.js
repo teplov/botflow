@@ -57,11 +57,13 @@ const toolbar = {
     delete: document.querySelector('#toolbar .delete'),
     load: document.querySelector('#toolbar .load'),
     export: document.querySelector('#toolbar .export'),
+    filename: document.querySelector('#toolbar .filename'),
     codeview: document.querySelector('#toolbar .codeview'),
     zoomIn: document.querySelector('#zoomToolbar .zoomIn'),
     zoomValue: document.querySelector('#zoomToolbar .zoomValue'),
     zoomOut: document.querySelector('#zoomToolbar .zoomOut'),
     info: document.querySelector('#zoomToolbar .info'),
+    file: document.querySelector('#file'),
 };
 
 const panel = {

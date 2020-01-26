@@ -160,18 +160,10 @@ BODY {
 #toolbar button {
     margin-left: 3px;
 }
-/* 
+
 #toolbar button {
-    background-color: #ddd;
-    width: 30px;
-    height: 30px;
-    font-size: 15px;
-    text-align: center;
-    color: #666;
-    border: 1px outset;
-    margin-right: 4px;
-    outline: none;
-} */
+   padding: 4px 9px;
+} 
 
 #toolbar button:hover {
     color: #000;
@@ -196,7 +188,7 @@ BODY {
     margin: 0;
     position: absolute;
     right: 0;
-    top: 40px;
+    top: 46px;
     bottom: 20px;
     width: 100vw;
     max-width: 450px;
@@ -209,7 +201,7 @@ BODY {
     background-color: #fefefe;
     visibility: hidden;
     display: block;
-    font-family: 'Courier', monospace;
+    font-family: 'Courier New', monospace;
     font-weight: 400;
     transition-property: right;
     transition-duration: 0.3s;

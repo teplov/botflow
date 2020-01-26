@@ -3,20 +3,20 @@ import Node from '../src/Node.js';
 import Connector from '../src/Connector.js';
 import Report from '../src/Report.js';
 
-const toolbar = {
-    blank: document.querySelector('#toolbar .blank'),
-    add: document.querySelector('#toolbar .add'),
-    delete: document.querySelector('#toolbar .delete'),
-    load: document.querySelector('#toolbar .load'),
-    export: document.querySelector('#toolbar .export'),
-    lang: document.querySelector('#toolbar .lang'),
-    codeview: document.querySelector('#toolbar .codeview'),
-    zoomIn: document.querySelector('#zoomToolbar .zoomIn'),
-    zoomValue: document.querySelector('#zoomToolbar .zoomValue'),
-    zoomOut: document.querySelector('#zoomToolbar .zoomOut'),
-    info: document.querySelector('#zoomToolbar .info'),
-    file: document.querySelector('#file'),
-};
+// const toolbar = {
+//     blank: document.querySelector('#toolbar .blank'),
+//     add: document.querySelector('#toolbar .add'),
+//     delete: document.querySelector('#toolbar .delete'),
+//     load: document.querySelector('#toolbar .load'),
+//     export: document.querySelector('#toolbar .export'),
+//     lang: document.querySelector('#toolbar .lang'),
+//     codeview: document.querySelector('#toolbar .codeview'),
+//     zoomIn: document.querySelector('#zoomToolbar .zoomIn'),
+//     zoomValue: document.querySelector('#zoomToolbar .zoomValue'),
+//     zoomOut: document.querySelector('#zoomToolbar .zoomOut'),
+//     info: document.querySelector('#zoomToolbar .info'),
+//     file: document.querySelector('#file'),
+// };
 
 
 jsPlumb.ready(() => {
@@ -63,11 +63,16 @@ jsPlumb.ready(() => {
 
     const loader = (json = null) => {
         let data = {};
+        let filename = 'ChatbotFlow';
         if (!json) {
-            json = localStorage.getItem('chatbotflow');
+            const _parseData = localStorage.getItem('chatbotflow');
+            json = _parseData ? _parseData : '{}';
+            //filename = _parseData ? _parseData.filename : filename;
         }
         if (json) {
-            data = JSON.parse(json);
+            const _parseData = JSON.parse(json);
+            data = _parseData.data || _parseData;
+            filename = _parseData.filename || filename;
             instance.empty(canvas);
         }
 
@@ -84,6 +89,8 @@ jsPlumb.ready(() => {
             });
         }
 
+        Config.toolbar.filename.innerText = filename;
+        instance.Report.create();
     };
 
     loader();
@@ -95,7 +102,7 @@ jsPlumb.ready(() => {
 
     instance.bind("click", (i) => {
         instance.Conn.select(i);
-        toolbar.info.innerText = `Connection: ${i.sourceId} -> ${i.targetId}`;
+        Config.toolbar.info.innerText = `Connection: ${i.sourceId} -> ${i.targetId}`;
     });
 
     instance.bind("connection", (i, e) => {
@@ -125,44 +132,45 @@ jsPlumb.ready(() => {
         instance.Conn.select(e.target);
     });
 
-    toolbar.blank.addEventListener('click', (e) => {
+    Config.toolbar.blank.addEventListener('click', (e) => {
         instance.empty(canvas);
+        Config.toolbar.filename.innerText = 'ChatbotFlow';
         instance.Report.create();
     });
 
-    toolbar.add.addEventListener('click', (e) => {
+    Config.toolbar.add.addEventListener('click', (e) => {
         instance.Node.create(20, 20);
         instance.Report.create();
     });
 
-    toolbar.delete.addEventListener('click', (e) => {
+    Config.toolbar.delete.addEventListener('click', (e) => {
         canvas.querySelectorAll('.selected').forEach(el => instance.Node.delete(el));
         instance.Conn.delete();
         instance.Report.create();
     });
 
-    toolbar.load.addEventListener('click', (e) => {
+    Config.toolbar.load.addEventListener('click', (e) => {
        // loader();
     });
 
-    toolbar.export.addEventListener('click', (e) => {
+    Config.toolbar.export.addEventListener('click', (e) => {
         instance.Report.download();
     });
 
-    toolbar.zoomIn.addEventListener('click', (e) => {
+    Config.toolbar.zoomIn.addEventListener('click', (e) => {
         zoom += 0.1;
-        toolbar.zoomValue.innerText = parseInt(zoom * 100, 10) + '%';
+        Config.toolbar.zoomValue.innerText = parseInt(zoom * 100, 10) + '%';
         setZoom(zoom, instance, [0.5, 0.5], canvas);
     });
 
-    toolbar.zoomOut.addEventListener('click', (e) => {
+    Config.toolbar.zoomOut.addEventListener('click', (e) => {
         zoom -= 0.1;
         if (zoom <= 0) return;
-        toolbar.zoomValue.innerText = parseInt(zoom * 100, 10) + '%';
+        Config.toolbar.zoomValue.innerText = parseInt(zoom * 100, 10) + '%';
         setZoom(zoom, instance, [0.5, 0.5], canvas);
     });
 
-    // toolbar.lang.addEventListener('click', (e) => {
+    // Config.toolbar.lang.addEventListener('click', (e) => {
     //     window.lang = Config.lang['EN'];
     //     if (e.target.innerText == 'RU') {
     //         window.lang = Config.lang['EN'];
@@ -173,23 +181,31 @@ jsPlumb.ready(() => {
     //     }
     // });
     
-    toolbar.codeview.addEventListener('click', (e) => {
+    Config.toolbar.codeview.addEventListener('click', (e) => {
         instance.Report.create();
         const output = document.querySelector('#output');
         output.classList.toggle('visible');
     });
 
-    toolbar.file.addEventListener('change', (e) => {
+    Config.toolbar.file.addEventListener('change', (e) => {
         const file = e.target.files[0];
         const reader = new FileReader();
         reader.readAsText(file);
-        console.log(file);
         if (file && file.type === 'application/json' && file.size > 0) {
             reader.addEventListener("load", (event) => {
                 const jsonData = event.target.result;
                 loader(jsonData);
             });
         }
+    });
+
+    Config.toolbar.filename.addEventListener('input', (e) => {
+        // //localStorage.setItem('chatbotflowFilename', e.target.innerText || 'chatbotflow');
+        // let data = instance.Report.data;
+        // data.filename = e.target.innerText || 'ChatbotFlow';
+        // instance.Report.data = data;
+        // console.log(instance.Report.data);
+        instance.Report.create();
     });
 
     const setZoom = (zoom, instance, transformOrigin, el) => {

@@ -8,9 +8,12 @@ export default class Report {
     }
 
     create() {
-        this.JSON = {};
+        this.JSON = {
+            filename: 'ChatbotFlow',
+            data: {}
+        };
         this.canvas.querySelectorAll('.node').forEach(el => {
-            this.JSON[el.id] = {
+            this.JSON.data[el.id] = {
                 id: el.id,
                 text: el.firstChild.innerText,
                 type: el.dataset.start ? 'start' : 'step',
@@ -21,12 +24,13 @@ export default class Report {
         });
 
         this.instance.getConnections().forEach((i, c) => {
-            this.JSON[i.sourceId].suggestions.push({
+            this.JSON.data[i.sourceId].suggestions.push({
                 text: i.getLabel(),
                 target: i.targetId
             });
         });
 
+        this.JSON.filename = Config.toolbar.filename.innerText || 'ChatbotFlow';
         Config.panel.output.innerHTML = this._syntaxHighlight(this.JSON);
         this.save();
     }
@@ -35,7 +39,13 @@ export default class Report {
         return this.JSON
     }
 
+    set data(newData) {
+        this.JSON = newData;
+        this.save();
+    }
+
     save() {
+        //console.log(this.JSON.filename);
         localStorage.setItem('chatbotflow', JSON.stringify(this.JSON));
     }
 
@@ -64,7 +74,7 @@ export default class Report {
     download() {
         const element = document.createElement('a');
         element.setAttribute('href', 'data:application/json;charset=utf-8,' + encodeURIComponent(JSON.stringify(this.data)));
-        const filename = prompt('Имя файла', `bot_scenario_` + Date.now());
+        const filename = prompt('File name', this.JSON.filename);
         
         if (!filename) return;
     
