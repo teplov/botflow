@@ -3,21 +3,6 @@ import Node from '../src/Node.js';
 import Connector from '../src/Connector.js';
 import Report from '../src/Report.js';
 
-// const toolbar = {
-//     blank: document.querySelector('#toolbar .blank'),
-//     add: document.querySelector('#toolbar .add'),
-//     delete: document.querySelector('#toolbar .delete'),
-//     load: document.querySelector('#toolbar .load'),
-//     export: document.querySelector('#toolbar .export'),
-//     lang: document.querySelector('#toolbar .lang'),
-//     codeview: document.querySelector('#toolbar .codeview'),
-//     zoomIn: document.querySelector('#zoomToolbar .zoomIn'),
-//     zoomValue: document.querySelector('#zoomToolbar .zoomValue'),
-//     zoomOut: document.querySelector('#zoomToolbar .zoomOut'),
-//     info: document.querySelector('#zoomToolbar .info'),
-//     file: document.querySelector('#file'),
-// };
-
 
 jsPlumb.ready(() => {
     
@@ -200,11 +185,6 @@ jsPlumb.ready(() => {
     });
 
     Config.toolbar.filename.addEventListener('input', (e) => {
-        // //localStorage.setItem('chatbotflowFilename', e.target.innerText || 'chatbotflow');
-        // let data = instance.Report.data;
-        // data.filename = e.target.innerText || Config.appname;
-        // instance.Report.data = data;
-        // console.log(instance.Report.data);
         instance.Report.create();
     });
 
