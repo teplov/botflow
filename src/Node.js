@@ -63,7 +63,7 @@ export default class Node {
         this.instance.draggable(nodeEl, {
             stop: () => this.instance.Report.create()
         });
-        nodeEl.addEventListener('dblclick', e => this._editLabel(e.target));
+        nodeEl.addEventListener('dblclick', e => this._editLabel(e.target, e));
         return nodeEl
     }
 
@@ -86,18 +86,20 @@ export default class Node {
         this.instance.getConnections().forEach(conn => conn.setPaintStyle({ stroke:"#000", strokeWidth:3 }));
     }
 
-    _editLabel(el) {
+    _editLabel(el, e) {
+        console.log(el);
         if (el.tagName == 'SPAN') {
-            //const label = prompt('Текст узла', el.innerText);
-            //if (label) el.innerText = label;
-            UIkit.modal(Config.modalEl.window).show();
-            window.mdEditor.value(el.innerText);
-            Config.modalEl.saveButton.addEventListener('click', (e) => {
-                el.innerText = window.mdEditor.value();
-                UIkit.modal(Config.modalEl.window).hide();
-                this.instance.Report.create();
-                this.instance.repaintEverything();
-            });
+            const label = prompt('Текст узла', el.innerText);
+            if (label) el.innerText = label;
+            this.instance.Report.create();
+            // UIkit.modal(Config.modalEl.window).show();
+            // window.mdEditor.value(el.innerText);
+            // Config.modalEl.saveButton.addEventListener('click', (e) => {
+            //     el.innerText = window.mdEditor.value();
+            //     UIkit.modal(Config.modalEl.window).hide();
+            //     this.instance.Report.create();
+            //     this.instance.repaintEverything();
+            // });
         }
     }
 
