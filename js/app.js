@@ -134,6 +134,12 @@ jsPlumb.ready(() => {
         instance.Report.create();
     });
 
+    Config.modalEl.saveButton.addEventListener('click', (e) => {
+        const value = window.mdEditor.value();
+        UIkit.modal(Config.modalEl.window).hide();
+        instance.Node.save(value);
+    });
+
     Config.toolbar.load.addEventListener('click', (e) => {
        // loader();
     });

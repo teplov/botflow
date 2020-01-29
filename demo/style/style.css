@@ -1,0 +1,85 @@
+
+BODY {
+    background-color: #fff;
+    font-family: 'SB Sans Interface','Helvetica Neue', sans-serif;
+    padding: 0;
+    margin: 0;
+    /* background-image: url('/image/fon2.png'); */
+    background-size: 1394px;
+    background-repeat: no-repeat;
+}
+
+.chat {
+    background-color: #fff;
+    width: 500px;
+    /* top: 300px;
+    position: absolute; */
+    padding: 40px;
+    display: table;
+    margin: 100px auto;
+}
+
+.message {
+    /* background-color: #fff; */
+    /* box-shadow: 0px 0px 10px rgba(0,0,0,.3); */
+    /* display: inline-flex; */
+}
+
+video {
+    width: 100%;
+    outline: none;
+    border-bottom: 1px solid #CED1D5;
+    cursor: pointer;
+}
+
+#mute {
+    display: block;
+    width: 24px;
+    font-size: 20px;
+    border: none;
+    background: none;
+    outline: none;
+    padding: 5px 0;
+    float: right;
+    opacity: .4;
+}
+
+#subtitle {
+    padding: 5px;
+    color: #666;
+    display: block;
+    font-size: 14px;
+    float: left;
+    line-height: 20px;
+    width: calc(100% - 50px);
+}
+
+#panel {
+    display: block;
+}
+
+#input {
+    display: none;
+    border: 1px solid red;
+    position: absolute;
+    top: 738px;
+    width: 570px;
+    padding: 0 40px;
+    box-sizing: border-box;
+}
+
+#textarea {
+    width: 430px;
+    height: 40px;
+}
+
+#mic {
+    width:40px;
+    height:40px;
+    margin: 0;
+    font-size: 18px;
+    display: inline-block;
+}
+
+.scale-up-center{-webkit-animation:scale-up-center .4s cubic-bezier(.39,.575,.565,1.000) both;animation:scale-up-center .4s cubic-bezier(.39,.575,.565,1.000) both}
+@-webkit-keyframes scale-up-center{0%{-webkit-transform:scale(.5);transform:scale(.5)}100%{-webkit-transform:scale(1);transform:scale(1)}}@keyframes scale-up-center{0%{-webkit-transform:scale(.5);transform:scale(.5)}100%{-webkit-transform:scale(1);transform:scale(1)}}

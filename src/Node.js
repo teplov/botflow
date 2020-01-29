@@ -7,6 +7,7 @@ export default class Node {
         this.canvas = window.canvas || document.querySelector('#canvas');
         this.lang = window.lang;
         this.count = 0;
+        this._editLabelData = '';
     }
 
     get length () {
@@ -52,18 +53,15 @@ export default class Node {
             nodeEl.dataset.start = true;
             const nodeMarker = this._createMarker(this.lang.nodeMarkerStart);
             nodeEl.appendChild(nodeMarker);
-            this.instance.getContainer().appendChild(nodeEl);
-            this._addEndpoints(id, ['BottomCenter'], []);
-        } else {
-            this.instance.getContainer().appendChild(nodeEl);
-            this._addEndpoints(id, ['BottomCenter'], ["TopCenter"]);
-        }
+        } 
+        this.instance.getContainer().appendChild(nodeEl);
+        this._addEndpoints(id, ['BottomCenter'], ["TopCenter"]);
 
         // обновляем report если произошло перемещение node
         this.instance.draggable(nodeEl, {
             stop: () => this.instance.Report.create()
         });
-        nodeEl.addEventListener('dblclick', e => this._editLabel(e.target, e));
+        nodeEl.addEventListener('dblclick', e => this._editLabel(e.target));
         return nodeEl
     }
 
@@ -86,21 +84,27 @@ export default class Node {
         this.instance.getConnections().forEach(conn => conn.setPaintStyle({ stroke:"#000", strokeWidth:3 }));
     }
 
-    _editLabel(el, e) {
+    _editLabel(el) {
         console.log(el);
         if (el.tagName == 'SPAN') {
-            const label = prompt('Текст узла', el.innerText);
-            if (label) el.innerText = label;
-            this.instance.Report.create();
-            // UIkit.modal(Config.modalEl.window).show();
-            // window.mdEditor.value(el.innerText);
-            // Config.modalEl.saveButton.addEventListener('click', (e) => {
+            // const label = prompt('Текст узла', el.innerText);
+            // if (label) el.innerText = label;
+            // this.instance.Report.create();
+            UIkit.modal(Config.modalEl.window).show();
+            window.mdEditor.value(el.innerText);
+            // Config.modalEl.saveButton.addEventListener('click', () => {
+            //     console.log(el.innerText);
             //     el.innerText = window.mdEditor.value();
+            //     console.log(el.innerText);
             //     UIkit.modal(Config.modalEl.window).hide();
             //     this.instance.Report.create();
             //     this.instance.repaintEverything();
             // });
         }
+    }
+
+    save(data) {
+        this._editLabelData = data;
     }
 
     _nl2br(text) {
