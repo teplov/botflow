@@ -61,7 +61,7 @@ export default class Node {
         this.instance.draggable(nodeEl, {
             stop: () => this.instance.Report.create()
         });
-        nodeEl.addEventListener('dblclick', e => this._editLabel(e.target));
+        nodeEl.addEventListener('dblclick', e => this._editLabel(e));
         return nodeEl
     }
 
@@ -84,23 +84,35 @@ export default class Node {
         this.instance.getConnections().forEach(conn => conn.setPaintStyle({ stroke:"#000", strokeWidth:3 }));
     }
 
-    _editLabel(el) {
-        console.log(el);
-        if (el.tagName == 'SPAN') {
-            // const label = prompt('Текст узла', el.innerText);
-            // if (label) el.innerText = label;
-            // this.instance.Report.create();
-            UIkit.modal(Config.modalEl.window).show();
-            window.mdEditor.value(el.innerText);
-            // Config.modalEl.saveButton.addEventListener('click', () => {
-            //     console.log(el.innerText);
-            //     el.innerText = window.mdEditor.value();
-            //     console.log(el.innerText);
-            //     UIkit.modal(Config.modalEl.window).hide();
-            //     this.instance.Report.create();
-            //     this.instance.repaintEverything();
-            // });
-        }
+    _editLabel(e) {
+        let element = e.target;
+            e.preventDefault();
+            e.target.blur();
+
+            const modal = UIkit.modal.dialog(`<button class="uk-modal-close-default" type="button" uk-close></button>
+            <div class="uk-modal-body uk-padding-remove">
+                <textarea id="mde" style="display: none">${element.innerText}</textarea>
+            </div>
+            <div class="uk-modal-footer uk-text-right">
+                <button class="uk-button uk-button-default uk-modal-close" type="button">Cancel</button>
+                <button class="uk-button uk-button-primary" id="editor_save" type="button">Save</button>
+            </div>`);
+
+            UIkit.util.on(modal.$el, 'shown', (e) => {
+                window.mdEditor = new SimpleMDE({ 
+                    element: e.target.querySelector("#mde"),
+                    status: false,
+                    spellChecker: false,
+                    toolbar: ["bold", "italic", "|", "quote", "link", "image", "|", "preview", "guide"], 
+                });
+
+                e.target.querySelector("#editor_save").addEventListener('click', () => {
+                        element.innerText = window.mdEditor.value();
+                        modal.$destroy();
+                        this.instance.Report.create();
+                        this.instance.repaintEverything();
+                    });
+            });
     }
 
     save(data) {
