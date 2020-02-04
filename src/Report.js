@@ -16,7 +16,7 @@ export default class Report {
             this.JSON.data[el.id] = {
                 id: el.id,
                 text: el.firstChild.innerText,
-                type: el.dataset.start ? 'start' : 'step',
+                type: el.dataset.type,
                 suggestions: [],
                 x: parseInt(el.style.left, 10),
                 y: parseInt(el.style.top, 10),

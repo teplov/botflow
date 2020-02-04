@@ -1,5 +1,6 @@
 import Config from './config.js';
 import Node from './Node.js';
+import Modal from './Modal.js';
 
 export default class Connector extends Node {
     constructor(instance) {
@@ -7,6 +8,8 @@ export default class Connector extends Node {
         this.instance = instance;
         this.canvas = window.canvas || document.querySelector('#canvas');
         this.selected = null;
+        this.modal = new Modal();
+        console.log(this.modal.menu);
     }
 
     create(connector, label = this.lang.connectorLabelDefault) {
@@ -53,6 +56,14 @@ export default class Connector extends Node {
     editLabel(connector) {
         const label = prompt('Текст саджеста', connector.getLabel());
         connector.setLabel(label);
+       
+        // UIkit.modal.prompt('Suggest label:', connector.getLabel()).then((label) => {
+        //     console.log('Prompted:', label)
+        //     connector.setLabel(label);
+        //     this.instance.Report.create();
+        // });
+
+        //this.modal.open(connector.getLabel());
     }
 
 }

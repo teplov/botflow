@@ -134,11 +134,11 @@ jsPlumb.ready(() => {
         instance.Report.create();
     });
 
-    Config.modalEl.saveButton.addEventListener('click', (e) => {
-        const value = window.mdEditor.value();
-        UIkit.modal(Config.modalEl.window).hide();
-        instance.Node.save(value);
-    });
+    // Config.modalEl.saveButton.addEventListener('click', (e) => {
+    //     const value = window.mdEditor.value();
+    //     UIkit.modal(Config.modalEl.window).hide();
+    //     instance.Node.save(value);
+    // });
 
     Config.toolbar.load.addEventListener('click', (e) => {
        // loader();
@@ -176,6 +176,13 @@ jsPlumb.ready(() => {
         instance.Report.create();
         const output = document.querySelector('#output');
         output.classList.toggle('visible');
+    });
+    
+    Config.toolbar.preview.addEventListener('click', (e) => {
+        instance.Report.create();
+        window.sberCare.setBotScenario(instance.Report.data);
+        const preview = document.querySelector('#preview');
+        preview.classList.toggle('visible');
     });
 
     Config.toolbar.file.addEventListener('change', (e) => {

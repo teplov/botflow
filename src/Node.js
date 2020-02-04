@@ -38,7 +38,9 @@ export default class Node {
     select(el) {
         if (el.parentNode.classList.contains('node')) el = el.parentNode;
         if (el.id == this.canvas.id || el.classList.contains('node')) this._deselect();
-        el.classList.toggle('selected');
+        //el.classList.toggle('selected');
+        el.classList.remove('deselected');
+        //el.classList.toggle('node_' + Config.labelColor[el.dataset.type]);
     }
 
     _createNode(id, x, y, label, marker) {
@@ -47,13 +49,14 @@ export default class Node {
         nodeEl.id = id;
         nodeEl.style.left = `${x}px`;
         nodeEl.style.top = `${y}px`;
-        nodeEl.appendChild(this._createLabel(label));
+        nodeEl.dataset.type = marker;
 
-        if (marker === 'start') {
-            nodeEl.dataset.start = true;
-            const nodeMarker = this._createMarker(this.lang.nodeMarkerStart);
-            nodeEl.appendChild(nodeMarker);
-        } 
+        nodeEl.classList.add('node_' + Config.labelColor[marker], 'deselected');
+
+        nodeEl.appendChild(this._createLabel(label));
+        nodeEl.appendChild(this._createMarker(marker));
+
+
         this.instance.getContainer().appendChild(nodeEl);
         this._addEndpoints(id, ['BottomCenter'], ["TopCenter"]);
 
@@ -67,25 +70,31 @@ export default class Node {
 
     _createLabel(text) {
         const nodeLabel = document.createElement('span');
+        nodeLabel.className = 'node_label';
         nodeLabel.innerText = text;
         return nodeLabel
     }
 
     _createMarker(text = this.lang.nodeMarkerStart) {
+        const nodeLabel = document.createElement('span');
         const nodeMarker = document.createElement('div');
-        nodeMarker.innerText = text;
-        nodeMarker.classList.add('uk-badge', 'uk-label', 'uk-position-top-right', 'uk-text-small');
+        //nodeLabel.innerText = text;
+        nodeMarker.title = text;
+        nodeLabel.setAttribute('uk-icon', 'icon:' + Config.labelIcon[text]);
+        nodeMarker.classList.add('type_label', `label_${Config.labelColor[text]}`);
+        nodeMarker.appendChild(nodeLabel);
         return nodeMarker
     }
 
     _deselect() {
-        this.canvas.querySelectorAll('.selected').forEach(el => el.classList.remove('selected'));
+        this.canvas.querySelectorAll('.node').forEach(el => el.classList.add('deselected'));
         this.instance.selectEndpoints().setPaintStyle({ fill:"#000", strokeWidth:2, stroke: "#fff" });
         this.instance.getConnections().forEach(conn => conn.setPaintStyle({ stroke:"#000", strokeWidth:3 }));
     }
 
     _editLabel(e) {
-        let element = e.target;
+        let element = e.target.parentNode.querySelector('.node_label');
+        //console.log(element.parentNode.querySelector('.node_label'));
             e.preventDefault();
             e.target.blur();
 

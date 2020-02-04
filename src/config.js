@@ -59,6 +59,7 @@ const toolbar = {
     export: document.querySelector('#toolbar .export'),
     filename: document.querySelector('#toolbar .filename'),
     codeview: document.querySelector('#toolbar .codeview'),
+    preview: document.querySelector('#toolbar .preview'),
     zoomIn: document.querySelector('#zoomToolbar .zoomIn'),
     zoomValue: document.querySelector('#zoomToolbar .zoomValue'),
     zoomOut: document.querySelector('#zoomToolbar .zoomOut'),
@@ -69,6 +70,22 @@ const toolbar = {
 const panel = {
     output: document.querySelector('#output'),
 }
+
+const labelColor = {
+    'start': 'red',
+    'video': 'orange',
+    'text': 'grey',
+    'link': 'blue',
+    'widget': 'green'
+};
+
+const labelIcon = {
+    'start': 'bolt',
+    'video': 'play-circle',
+    'text': 'commenting',
+    'link': 'link',
+    'widget': 'nut'
+};
 
 const lang = {
     'EN': {
@@ -97,5 +114,7 @@ export default {
     panel,
     lang,
     modalEl,
-    appname
+    appname,
+    labelColor,
+    labelIcon
 };

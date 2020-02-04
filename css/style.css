@@ -9,8 +9,8 @@ BODY {
     left: 0px;
     top: 0px;
     background-color: #fff;
-    width: 2000px;
-    height: 2000px;
+    width: 4000px;
+    height: 4000px;
     position: absolute;
     -webkit-transform: scale(1);
     -moz-transform: scale(1);
@@ -94,11 +94,15 @@ BODY {
     color: rgba(255,255,255,0.8);
     /* margin: 20px; */
     border-radius: 4px;
+    border-top-left-radius: 6px;
+    border-bottom-left-radius: 6px;
     text-align: left;
     line-height: 50px;
     box-sizing: border-box;
     position: absolute;
     cursor: move;
+    display: flex;
+    flex-direction: row-reverse;
 }
 
 .start {
@@ -184,7 +188,7 @@ BODY {
     user-select: none;    
 }     */
 
-#output {
+#output, #preview {
     margin: 0;
     position: absolute;
     right: 0;
@@ -209,7 +213,8 @@ BODY {
     transition-delay: 0s;
 }
 
-#output.visible {
+
+#output.visible, #preview.visible {
     visibility: visible;
     /* display: block; */
 }
@@ -221,17 +226,43 @@ BODY {
 .key { color: brown; }  
 
 
-.uk-label {
-    height: 14px;
+.type_label {
     font-size: 9px;
-    line-height: 14px;
-    bottom:0px;
-    border-radius: 0px;
-    border-top-right-radius: 4px;
-    padding: 0 4px;
+    width: 30px;
+    border-top-left-radius: 4px;
+    border-bottom-left-radius: 4px;
+    text-align: center;
+}
+
+.type_label span {
+    width: 30px;
+    padding: 0;
+    display: inline-table;
+}
+
+.label_blue, .node_blue {
     background-color: #1976d3;
 }
 
+.label_green, .node_green {
+    background-color:green;
+}
+
+.label_red, .node_red {
+    background-color: red;
+}
+
+.label_grey, .node_grey {
+    background-color: grey;
+}
+
+.label_orange, .node_orange {
+    background-color: orange;
+}
+
+.deselected {
+    background-color: #000;
+}
 
 #hidden {
     display: none;
