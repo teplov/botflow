@@ -18,7 +18,7 @@ export default class Node {
         const id = jsPlumbUtil.uuid();
         const nodeExist = canvas.querySelectorAll('.node').length;
         let type = 'start';
-        if (nodeExist) type = 'step';
+        if (nodeExist) type = 'text';
         this._createNode(id, x, y, label, type);
     }
 

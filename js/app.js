@@ -129,7 +129,7 @@ jsPlumb.ready(() => {
     });
 
     Config.toolbar.delete.addEventListener('click', (e) => {
-        canvas.querySelectorAll('.selected').forEach(el => instance.Node.delete(el));
+        canvas.querySelectorAll('.node:not(.deselected)').forEach(el => instance.Node.delete(el));
         instance.Conn.delete();
         instance.Report.create();
     });
