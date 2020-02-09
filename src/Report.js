@@ -13,9 +13,10 @@ export default class Report {
             data: {}
         };
         this.canvas.querySelectorAll('.node').forEach(el => {
-            this.JSON.data[el.id] = {
-                id: el.id,
-                text: el.firstChild.innerText,
+            this.JSON.data[el.dataset.id] = {
+                id: el.dataset.id,
+                //data: el.firstChild.innerText,
+                data: el.dataset.data ? JSON.parse(el.dataset.data) : el.querySelector('.node_label').innerText,
                 type: el.dataset.type,
                 suggestions: [],
                 x: parseInt(el.style.left, 10),
@@ -42,6 +43,7 @@ export default class Report {
     set data(newData) {
         this.JSON = newData;
         this.save();
+        this.instance.repaintEverything();
     }
 
     save() {

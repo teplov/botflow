@@ -27,7 +27,15 @@
         <span class="filename uk-text-light uk-text-large uk-padding-small uk-padding-remove-top uk-padding-remove-bottom uk-text-truncate uk-visible@m" contenteditable="true">ChatbotFlow</span>
     </div>
     <div class="uk-navbar-center">
-        <button class="add uk-button uk-button-default uk-button-small" title="Add new node"><span uk-icon="icon: plus"></span></button>
+        <button class="add uk-button uk-button-default uk-button-small" title="Select node type"><span uk-icon="icon: plus"></span></button>        
+        <div uk-dropdown class="uk-padding-small">
+            <ul class="add-type uk-nav uk-dropdown-nav">
+                <li><a href="#" data-type="text" class="add_text uk-link-text" title="Add new text node"><span class="uk-margin-right" uk-icon="icon: commenting"></span> Text</a></li>
+                <li><a href="#" data-type="video" class="add_video uk-link-text" title="Add new video node"><span class="uk-margin-right" uk-icon="icon: play-circle"></span> Video</a></li>
+                <li><a href="#" data-type="link" class="add_link uk-link-text" title="Add new link node"><span class="uk-margin-right" uk-icon="icon: link"></span> Link</a></li>
+                <li><a href="#" data-type="widget" class="add_widget uk-link-text" title="Add new widget node"><span class="uk-margin-right" uk-icon="icon: nut"></span> Widget</a></li>
+            </ul>
+        </div>
         <button class="delete uk-button uk-button-default uk-button-small" title="Delete selected node"><span uk-icon="icon: close"></span></button>
     </div>
     <div class="uk-navbar-right">

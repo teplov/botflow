@@ -102,7 +102,7 @@ BODY {
     position: absolute;
     cursor: move;
     display: flex;
-    flex-direction: row-reverse;
+    flex-direction: row;
 }
 
 .start {

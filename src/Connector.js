@@ -1,8 +1,8 @@
 import Config from './config.js';
-import Node from './Node.js';
+import Canvas from './Canvas.js';
 import Modal from './Modal.js';
 
-export default class Connector extends Node {
+export default class Connector extends Canvas {
     constructor(instance) {
         super();
         this.instance = instance;
@@ -65,5 +65,16 @@ export default class Connector extends Node {
 
         //this.modal.open(connector.getLabel());
     }
+
+    _addEndpoints(toId, sourceAnchors, targetAnchors) {
+        for (let i = 0; i < sourceAnchors.length; i++) {
+            const sourceUUID = toId + sourceAnchors[i];
+            jsp.addEndpoint(toId, Config.sourceEndpoint, { anchor: sourceAnchors[i], uuid: sourceUUID, isSource: true, connectionsDetachable: false });
+        }
+        for (let j = 0; j < targetAnchors.length; j++) {
+            const targetUUID = toId + targetAnchors[j];
+            jsp.addEndpoint(toId, Config.targetEndpoint, { anchor: targetAnchors[j], uuid: targetUUID, isTarget: true, connectionsDetachable: true });
+        }
+    };
 
 }

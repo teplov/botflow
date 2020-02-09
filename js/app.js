@@ -1,5 +1,10 @@
 import Config from '../src/config.js';
-import Node from '../src/Node.js';
+import Canvas from '../src/Canvas.js';
+import VideoNode from '../src/VideoNode.js';
+import TextNode from '../src/TextNode.js';
+import StartNode from '../src/StartNode.js';
+import LinkNode from '../src/LinkNode.js';
+import WidgetNode from '../src/WidgetNode.js';
 import Connector from '../src/Connector.js';
 import Report from '../src/Report.js';
 
@@ -9,6 +14,7 @@ jsPlumb.ready(() => {
     window.canvas = document.getElementById('canvas');
     window.lang = Config.lang['EN'];
     let zoom = 1;
+    window.currentNodeType = 'start';
     
     const instance = window.jsp = jsPlumb.getInstance({
         Node: null,
@@ -32,7 +38,12 @@ jsPlumb.ready(() => {
         //dragAllowedWhenFull:false
     });
     
-    instance.Node = new Node(instance);
+    instance.Canvas = new Canvas(instance);
+    instance.VideoNode = new VideoNode(window.canvas, instance);
+    instance.TextNode = new TextNode(window.canvas, instance);
+    instance.StartNode = new StartNode(window.canvas, instance);
+    instance.LinkNode = new LinkNode(window.canvas, instance);
+    instance.WidgetNode = new WidgetNode(window.canvas, instance);
     instance.Conn = new Connector(instance);
     instance.Report = new Report(instance);
 
@@ -63,13 +74,13 @@ jsPlumb.ready(() => {
 
         for (let i in data) {
             const item = data[i];
-            instance.Node.load(item.id, item.text, item.type, item.x, item.y);
+            instance.Canvas.load(item.id, item.data || item.text, item.type, item.x, item.y);
         }
 
         for (let i in data) {
             const item = data[i];
             item.suggestions.forEach((suggest) => {
-                //console.log(item.id, suggest.target);
+                console.log(item.id, item.type);
                 instance.Conn.load(item.id, suggest.target, suggest.text, item.type);
             });
         }
@@ -91,6 +102,7 @@ jsPlumb.ready(() => {
     });
 
     instance.bind("connection", (i, e) => {
+        console.log('connection');
         instance.Conn.create(i);
         instance.Report.create();
     });
@@ -107,14 +119,16 @@ jsPlumb.ready(() => {
     instance.on(canvas, "dblclick", (e) => {
         // проверяем, что кликаем по пустому холсту, а не по элементам
         if (e.target.id == canvas.id) {
-            instance.Node.create(e.offsetX, e.offsetY);
+            //instance.Canvas.create(e.offsetX, e.offsetY);
+            setCurrentNodeType(window.currentNodeType, e.offsetX - 20, e.offsetY - 20);
             instance.Report.create();
         }
     });
 
     canvas.addEventListener('click', (e) => { 
-        instance.Node.select(e.target);
-        instance.Conn.select(e.target);
+        if (e.target === window.canvas) {
+            instance.Canvas._deselect();
+        }
     });
 
     Config.toolbar.blank.addEventListener('click', (e) => {
@@ -123,21 +137,51 @@ jsPlumb.ready(() => {
         instance.Report.create();
     });
 
+    const setCurrentNodeType = (type, x = 20, y = 20) => {
+        const nodeExist = canvas.querySelectorAll('.node').length;
+        if (!nodeExist) type = 'start';
+        switch(type) {
+            case 'text':
+                instance.TextNode.create(jsPlumbUtil.uuid(), x, y);
+                window.currentNodeType = 'text';
+                break;
+            case 'video':
+                instance.VideoNode.create(jsPlumbUtil.uuid(), x, y);
+                window.currentNodeType = 'video';
+                break;
+            case 'link':
+                instance.LinkNode.create(jsPlumbUtil.uuid(), x, y);
+                window.currentNodeType = 'link';
+                break;
+            case 'widget':
+                instance.WidgetNode.create(jsPlumbUtil.uuid(), x, y);
+                window.currentNodeType = 'widget';
+                break;
+            default:
+                instance.StartNode.create(jsPlumbUtil.uuid(), x, y);
+                window.currentNodeType = 'text';
+        }
+        Config.toolbar.add.innerHTML = `<span uk-icon="icon: ${Config.labelIcon[window.currentNodeType]}"></span>`;
+    };
+
     Config.toolbar.add.addEventListener('click', (e) => {
-        instance.Node.create(20, 20);
-        instance.Report.create();
+        setCurrentNodeType(window.currentNodeType);
     });
 
     Config.toolbar.delete.addEventListener('click', (e) => {
-        canvas.querySelectorAll('.node:not(.deselected)').forEach(el => instance.Node.delete(el));
+        canvas.querySelectorAll('.node:not(.deselected)').forEach(el => instance.Canvas.delete(el));
         instance.Conn.delete();
         instance.Report.create();
+    });
+
+    Config.toolbar.addType.addEventListener('click', (e) => {
+        setCurrentNodeType(e.target.dataset.type);
     });
 
     // Config.modalEl.saveButton.addEventListener('click', (e) => {
     //     const value = window.mdEditor.value();
     //     UIkit.modal(Config.modalEl.window).hide();
-    //     instance.Node.save(value);
+    //     instance.Canvas.save(value);
     // });
 
     Config.toolbar.load.addEventListener('click', (e) => {

@@ -54,6 +54,11 @@ const targetEndpoint = {
 const toolbar = {
     blank: document.querySelector('#toolbar .blank'),
     add: document.querySelector('#toolbar .add'),
+    addType: document.querySelector('#toolbar .add-type'),
+    addVideo: document.querySelector('#toolbar .add_video'),
+    addText: document.querySelector('#toolbar .add_text'),
+    addLink: document.querySelector('#toolbar .add_link'),
+    addWidget: document.querySelector('#toolbar .add_widget'),
     delete: document.querySelector('#toolbar .delete'),
     load: document.querySelector('#toolbar .load'),
     export: document.querySelector('#toolbar .export'),
