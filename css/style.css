@@ -169,6 +169,16 @@ BODY {
    padding: 4px 9px;
 } 
 
+.corner{
+    width: 0px;
+    height:0px;
+    border-bottom: 8px solid #e5e5e5;
+    border-left: 8px solid transparent;
+    bottom: 0;
+    right: 0;
+    position: absolute;
+}
+
 #toolbar button:hover {
     color: #000;
 }

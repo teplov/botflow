@@ -139,7 +139,11 @@ jsPlumb.ready(() => {
 
     const setCurrentNodeType = (type, x = 20, y = 20) => {
         const nodeExist = canvas.querySelectorAll('.node').length;
-        if (!nodeExist) type = 'start';
+        if (!nodeExist) {
+            window.currentNodeType = 'start';
+        } else if (nodeExist && window.currentNodeType === 'start') {
+            type = 'text';
+        }
         switch(type) {
             case 'text':
                 instance.TextNode.create(jsPlumbUtil.uuid(), x, y);
