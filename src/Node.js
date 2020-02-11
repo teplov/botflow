@@ -45,6 +45,7 @@ export default class Node {
     }
 
     save(data) {
+        this.data = data;
         this.node.dataset.data = JSON.stringify(data);
         this.instance.Report.create();
         this.instance.repaintEverything();

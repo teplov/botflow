@@ -281,3 +281,12 @@ BODY {
 #hidden {
     display: none;
 }
+
+/* 
+.uk-modal {
+    transition: none;
+}
+
+.uk-transition-toggle {
+    transition: none;
+} */

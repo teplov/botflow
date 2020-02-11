@@ -6,7 +6,7 @@ export default class TextNode extends Node {
     constructor(container, instance) {
         super(container, instance);
         this.type = 'text';
-        this.defaultData = 'Double click to edit2';
+        this.defaultData = 'Double click to edit';
     }
 
     create(id, x, y, data = this.defaultData) {

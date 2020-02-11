@@ -40,7 +40,7 @@ export default class LinkNode extends Node {
         </div>
         <div id="body" class=" uk-modal-body">
             <label class="uk-text-meta" for="file_video">Ссылка</label>
-            <input class="uk-input" id="link" type="text" placeholder="Адрес" value="${this.data}">   
+            <input class="uk-input" id="data_link" type="text" placeholder="Адрес" value="${this.data}">   
         </div>
         <div class="uk-modal-footer uk-text-right">
             <button class="uk-button uk-button-default uk-modal-close" type="button">Cancel</button>
@@ -48,8 +48,9 @@ export default class LinkNode extends Node {
         </div>`);
 
         UIkit.util.on(modal.$el, 'shown', (e) => {
+            const editModal = e.target;
             e.target.querySelector("#editor_save").addEventListener('click', (e) => {
-                const data = document.querySelector('#link').value;
+                const data = editModal.querySelector('#data_link').value;
                 this.save(data);
             });
         });

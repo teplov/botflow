@@ -56,10 +56,11 @@ export default class AnchorNode extends Node {
         </div>`);
 
         UIkit.util.on(modal.$el, 'shown', (e) => {
+            const editModal = e.target;
             e.target.querySelector("#editor_save").addEventListener('click', (e) => {
                 let data = {};
-                data.file = document.querySelector('#anchor_file').value;
-                data.target = document.querySelector('#anchor_target').value;
+                data.file = editModal.querySelector('#anchor_file').value;
+                data.target = editModal.querySelector('#anchor_target').value;
                 this.save(data);
             });
         });

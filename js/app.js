@@ -175,7 +175,7 @@ jsPlumb.ready(() => {
     };
 
     Config.toolbar.add.addEventListener('click', (e) => {
-        setCurrentNodeType(window.currentNodeType);
+       // setCurrentNodeType(window.currentNodeType);
     });
 
     Config.toolbar.delete.addEventListener('click', (e) => {
@@ -185,7 +185,9 @@ jsPlumb.ready(() => {
     });
 
     Config.toolbar.addType.addEventListener('click', (e) => {
-        setCurrentNodeType(e.target.dataset.type);
+        window.currentNodeType = e.target.dataset.type;
+        Config.toolbar.add.innerHTML = `<span uk-icon="icon: ${Config.labelIcon[window.currentNodeType]}"></span>`;
+        //setCurrentNodeType(e.target.dataset.type);
     });
 
     // Config.modalEl.saveButton.addEventListener('click', (e) => {
