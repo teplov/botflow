@@ -16,6 +16,7 @@ export default class VideoNode extends Node {
         super.create(id, x, y, data);
         this.node.dataset.data = JSON.stringify(this.data);
         this.node.appendChild(this._createLabel());
+        this._addEndpoints(this.node, ['BottomCenter'], ["TopCenter"]);
         jsp.repaintEverything();
         jsp.Report.create();
     }
@@ -44,7 +45,8 @@ export default class VideoNode extends Node {
         const modal = UIkit.modal.dialog(`
         <button class="uk-modal-close-default" type="button" uk-close></button>
         <div class="uk-modal-header">
-            <h2 class="uk-modal-title">Video node</h2>
+            <h2 class="uk-modal-title uk-margin-small-bottom">Video node</h2>
+            <h5 class="uk-margin-remove-top">id: ${this.id}</h5>
         </div>
         <div id="body" class=" uk-modal-body">
             <label class="uk-text-meta" for="file_video">Имя файла</label>

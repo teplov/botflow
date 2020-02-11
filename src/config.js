@@ -58,6 +58,7 @@ const toolbar = {
     addVideo: document.querySelector('#toolbar .add_video'),
     addText: document.querySelector('#toolbar .add_text'),
     addLink: document.querySelector('#toolbar .add_link'),
+    addAnchor: document.querySelector('#toolbar .add_anchor'),
     addWidget: document.querySelector('#toolbar .add_widget'),
     delete: document.querySelector('#toolbar .delete'),
     load: document.querySelector('#toolbar .load'),
@@ -81,6 +82,7 @@ const labelColor = {
     'video': 'orange',
     'text': 'grey',
     'link': 'blue',
+    'anchor': 'purple',
     'widget': 'green'
 };
 
@@ -89,6 +91,7 @@ const labelIcon = {
     'video': 'play-circle',
     'text': 'commenting',
     'link': 'link',
+    'anchor': 'hashtag',
     'widget': 'nut'
 };
 

@@ -4,6 +4,7 @@ import TextNode from './TextNode.js';
 import VideoNode from './VideoNode.js';
 import StartNode from './StartNode.js';
 import LinkNode from './LinkNode.js';
+import AnchorNode from './AnchorNode.js';
 import WidgetNode from './WidgetNode.js';
 
 export default class Canvas {
@@ -65,6 +66,11 @@ export default class Canvas {
 
         if (type == 'link') {
             this.nodes[id] = new LinkNode(this.instance.getContainer(), this.instance);
+            this.nodes[id].create(id, x, y, data);
+        }
+
+        if (type == 'anchor') {
+            this.nodes[id] = new AnchorNode(this.instance.getContainer(), this.instance);
             this.nodes[id].create(id, x, y, data);
         }
 

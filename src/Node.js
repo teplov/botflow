@@ -26,7 +26,7 @@ export default class Node {
         
         canvas.appendChild(this.node);
         this.node.appendChild(this._createMarker());
-        this._addEndpoints(this.node, ['BottomCenter'], ["TopCenter"]);
+        //this._addEndpoints(this.node, ['BottomCenter'], ["TopCenter"]);
         
         jsp.draggable(this.node, {
             stop: () => {
@@ -47,6 +47,7 @@ export default class Node {
     save(data) {
         this.node.dataset.data = JSON.stringify(data);
         this.instance.Report.create();
+        this.instance.repaintEverything();
     }
 
     mde(container) {

@@ -4,6 +4,7 @@ import VideoNode from '../src/VideoNode.js';
 import TextNode from '../src/TextNode.js';
 import StartNode from '../src/StartNode.js';
 import LinkNode from '../src/LinkNode.js';
+import AnchorNode from '../src/AnchorNode.js';
 import WidgetNode from '../src/WidgetNode.js';
 import Connector from '../src/Connector.js';
 import Report from '../src/Report.js';
@@ -43,6 +44,7 @@ jsPlumb.ready(() => {
     instance.TextNode = new TextNode(window.canvas, instance);
     instance.StartNode = new StartNode(window.canvas, instance);
     instance.LinkNode = new LinkNode(window.canvas, instance);
+    instance.AnchorNode = new AnchorNode(window.canvas, instance);
     instance.WidgetNode = new WidgetNode(window.canvas, instance);
     instance.Conn = new Connector(instance);
     instance.Report = new Report(instance);
@@ -80,7 +82,6 @@ jsPlumb.ready(() => {
         for (let i in data) {
             const item = data[i];
             item.suggestions.forEach((suggest) => {
-                console.log(item.id, item.type);
                 instance.Conn.load(item.id, suggest.target, suggest.text, item.type);
             });
         }
@@ -139,8 +140,9 @@ jsPlumb.ready(() => {
 
     const setCurrentNodeType = (type, x = 20, y = 20) => {
         const nodeExist = canvas.querySelectorAll('.node').length;
+        console.log(nodeExist);
         if (!nodeExist) {
-            window.currentNodeType = 'start';
+            window.currentNodeType = type = 'start';
         } else if (nodeExist && window.currentNodeType === 'start') {
             type = 'text';
         }
@@ -156,6 +158,10 @@ jsPlumb.ready(() => {
             case 'link':
                 instance.LinkNode.create(jsPlumbUtil.uuid(), x, y);
                 window.currentNodeType = 'link';
+                break;
+            case 'anchor':
+                instance.AnchorNode.create(jsPlumbUtil.uuid(), x, y);
+                window.currentNodeType = 'anchor';
                 break;
             case 'widget':
                 instance.WidgetNode.create(jsPlumbUtil.uuid(), x, y);

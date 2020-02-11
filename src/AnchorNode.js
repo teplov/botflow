@@ -2,18 +2,21 @@ import Config from './config.js';
 import Modal from './Modal.js';
 import Node from './Node.js';
 
-export default class StartNode extends Node {
+export default class AnchorNode extends Node {
     constructor(container, instance) {
         super(container, instance);
-        this.type = 'start';
-        this.defaultData = 'Double click to edit';
+        this.type = 'anchor';
+        this.defaultData = {
+            file: '',
+            target: 'start'
+        };
     }
 
     create(id, x, y, data = this.defaultData) {
         super.create(id, x, y, data);
         this.node.dataset.data = JSON.stringify(this.data);
         this.node.appendChild(this._createLabel());
-        this._addEndpoints(this.node, ['BottomCenter'], []);
+        this._addEndpoints(this.node, [], ['TopCenter']);
         jsp.repaintEverything();
         jsp.Report.create();
     }
@@ -21,13 +24,15 @@ export default class StartNode extends Node {
     _createLabel() {
         const nodeLabel = document.createElement('span');
         nodeLabel.className = 'node_label';
-        nodeLabel.innerHTML = this.data;
+        nodeLabel.innerHTML = `${this.data.file}@${this.data.target}`;
         return nodeLabel
     }
 
-    save(text) {
-        this.node.querySelector('.node_label').innerText = text;
-        super.save(text);
+    save(data) {
+        this.data = data;
+        this.node.querySelector('.node_label').remove();
+        this.node.appendChild(this._createLabel());
+        super.save(data);
     }
 
     edit() {
@@ -35,23 +40,27 @@ export default class StartNode extends Node {
         const modal = UIkit.modal.dialog(`
         <button class="uk-modal-close-default" type="button" uk-close></button>
         <div class="uk-modal-header">
-            <h2 class="uk-modal-title uk-margin-small-bottom">Start node</h2>
+            <h2 class="uk-modal-title uk-margin-small-bottom">Anchor node</h2>
             <h5 class="uk-margin-remove-top">id: ${this.id}</h5>
         </div>
         <div id="body" class=" uk-modal-body">
-            <textarea id="mde_text">${this.data}</textarea>
+            <label class="uk-text-meta" for="file_video">Файл сценария</label>
+            <input class="uk-input" id="anchor_file" type="text" placeholder="файл" value="${this.data.file}"> 
+
+            <label class="uk-text-meta" for="file_video">Узел сценария</label>
+            <input class="uk-input" id="anchor_target" type="text" placeholder="ID узла" value="${this.data.target}">   
         </div>
         <div class="uk-modal-footer uk-text-right">
             <button class="uk-button uk-button-default uk-modal-close" type="button">Cancel</button>
             <button class="uk-button uk-button-primary uk-modal-close" id="editor_save" type="button">Save</button>
         </div>`);
 
-        this.mde("mde_text");
-
         UIkit.util.on(modal.$el, 'shown', (e) => {
             e.target.querySelector("#editor_save").addEventListener('click', (e) => {
-                const text = window.mdEditor.value();
-                this.save(text);
+                let data = {};
+                data.file = document.querySelector('#anchor_file').value;
+                data.target = document.querySelector('#anchor_target').value;
+                this.save(data);
             });
         });
     }

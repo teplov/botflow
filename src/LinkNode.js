@@ -13,6 +13,7 @@ export default class LinkNode extends Node {
         super.create(id, x, y, data);
         this.node.dataset.data = JSON.stringify(this.data);
         this.node.appendChild(this._createLabel());
+        this._addEndpoints(this.node, [], ['TopCenter']);
         jsp.repaintEverything();
         jsp.Report.create();
     }
@@ -24,12 +25,18 @@ export default class LinkNode extends Node {
         return nodeLabel
     }
 
+    save(text) {
+        this.node.querySelector('.node_label').innerText = text;
+        super.save(text);
+    }
+
     edit() {
         super.edit();
-        window.modal = UIkit.modal.dialog(`
+        const modal = UIkit.modal.dialog(`
         <button class="uk-modal-close-default" type="button" uk-close></button>
         <div class="uk-modal-header">
-            <h2 class="uk-modal-title">Link node</h2>
+            <h2 class="uk-modal-title uk-margin-small-bottom">Link node</h2>
+            <h5 class="uk-margin-remove-top">id: ${this.id}</h5>
         </div>
         <div id="body" class=" uk-modal-body">
             <label class="uk-text-meta" for="file_video">Ссылка</label>
@@ -37,10 +44,15 @@ export default class LinkNode extends Node {
         </div>
         <div class="uk-modal-footer uk-text-right">
             <button class="uk-button uk-button-default uk-modal-close" type="button">Cancel</button>
-            <button class="uk-button uk-button-primary" id="editor_save" type="button">Save</button>
+            <button class="uk-button uk-button-primary uk-modal-close" id="editor_save" type="button">Save</button>
         </div>`);
 
-        this.mde("mde_text");
+        UIkit.util.on(modal.$el, 'shown', (e) => {
+            e.target.querySelector("#editor_save").addEventListener('click', (e) => {
+                const data = document.querySelector('#link').value;
+                this.save(data);
+            });
+        });
     }
 
 
