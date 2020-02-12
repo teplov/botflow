@@ -31,24 +31,25 @@ const createVideo = (parentEl, src) => {
   trackEl.srclang = "ru";
   trackEl.label = "Russian";
   trackEl.default = true;
-  videoEl.appendChild(trackEl);
+  //videoEl.appendChild(trackEl);
 
   parentEl.appendChild(videoEl);
 
   
 
   videoEl.addEventListener('loadedmetadata', () => {
+    let track = videoEl.addTextTrack("captions", "Russina", "ru");
+    track.addCue(new VTTCue(0, 3, "[Test1]"));
+    track.addCue(new VTTCue(3, 6, "[Test2]"));
+    //track.mode = "showing";
+
     textTrack = videoEl.textTracks[0]; 
     cue = textTrack.cues[0];
-    textTrack.oncuechange = function (){
-      // "this" is a textTrack
-      const cue = this.activeCues[0]; // assuming there is only one active cue
-      //const obj = cue.text;
+    textTrack.oncuechange = () => {
+      const cue = textTrack.activeCues[0]; // assuming there is only one active cue
       if (cue) {
-        //console.log(cue);
           subtitleEl.innerText = cue.text;
       }
-      // do something
     }
     console.log('loaded');
       // findCapter('Hello', (cue) => {
@@ -66,6 +67,12 @@ const createVideo = (parentEl, src) => {
         videoEl.play();
     } else {
         videoEl.pause();
+    }
+  });
+
+  videoEl.addEventListener('timeupdate', (e) => {
+    if (e.target.currentTime >= 6) {
+      videoEl.pause();
     }
   });
 
