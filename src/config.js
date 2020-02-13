@@ -114,6 +114,8 @@ const modalEl = {
 };
 
 const appname = 'ChatbotFlow';
+const storageScenarionName = 'chatbotflow';
+const storageSettingsName = 'chatbotflow_settings';
 
 export default {
     sourceEndpoint,
@@ -123,6 +125,8 @@ export default {
     lang,
     modalEl,
     appname,
+    storageScenarionName,
+    storageSettingsName,
     labelColor,
     labelIcon
 };

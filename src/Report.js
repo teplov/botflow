@@ -48,7 +48,7 @@ export default class Report {
 
     save() {
         //console.log(this.JSON.filename);
-        localStorage.setItem('chatbotflow', JSON.stringify(this.JSON));
+        localStorage.setItem(Config.storageScenarionName, JSON.stringify(this.JSON));
     }
 
     _syntaxHighlight(json) {

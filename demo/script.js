@@ -31,16 +31,16 @@ const createVideo = (parentEl, src) => {
   trackEl.srclang = "ru";
   trackEl.label = "Russian";
   trackEl.default = true;
-  //videoEl.appendChild(trackEl);
+  videoEl.appendChild(trackEl);
 
   parentEl.appendChild(videoEl);
 
   
 
   videoEl.addEventListener('loadedmetadata', () => {
-    let track = videoEl.addTextTrack("captions", "Russina", "ru");
-    track.addCue(new VTTCue(0, 3, "[Test1]"));
-    track.addCue(new VTTCue(3, 6, "[Test2]"));
+    // let track = videoEl.addTextTrack("captions", "Russina", "ru");
+    // track.addCue(new VTTCue(0, 3, "[Test1]"));
+    // track.addCue(new VTTCue(3, 6, "[Test2]"));
     //track.mode = "showing";
 
     textTrack = videoEl.textTracks[0]; 
@@ -72,7 +72,7 @@ const createVideo = (parentEl, src) => {
 
   videoEl.addEventListener('timeupdate', (e) => {
     if (e.target.currentTime >= 6) {
-      videoEl.pause();
+      //videoEl.pause();
     }
   });
 
@@ -92,7 +92,7 @@ const createVideo = (parentEl, src) => {
   });
 
   videoEl.addEventListener('ended', (e) => { 
-      subtitleEl.innerText = null;
+      //subtitleEl.innerText = null;
       clearInterval(interval);
   });
   
@@ -133,7 +133,7 @@ muteEl.addEventListener('click', (e) => {
 //   }, 3000);
 // });
 
-createVideo(messEl, './video/elena_4');
+createVideo(messEl, './video/elena_3_14');
 
 const getTime = (duration = 0, current = 0) => {
     const remind = duration - current;

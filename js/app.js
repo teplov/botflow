@@ -63,7 +63,7 @@ jsPlumb.ready(() => {
         let data = {};
         let filename = Config.appname;
         if (!json) {
-            const _parseData = localStorage.getItem('chatbotflow');
+            const _parseData = localStorage.getItem(Config.storageScenarionName);
             json = _parseData ? _parseData : '{}';
             //filename = _parseData ? _parseData.filename : filename;
         }
