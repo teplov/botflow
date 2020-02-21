@@ -4,6 +4,7 @@ let videoEl = null;
 const muteEl = document.querySelector('#mute');
 const subtitleEl = document.querySelector('#subtitle');
 const micEl = document.querySelector('#mic');
+const countEl = document.querySelector('#counter');
 const timeEl = document.querySelector('#time');
 let textTrack = null; 
 let cue = null;
@@ -27,7 +28,8 @@ const createVideo = (parentEl, src) => {
 
   const trackEl = document.createElement('track');
   trackEl.kind = "metadata";
-  trackEl.src = `${src}.vtt`;
+  //trackEl.src = `${src}.vtt`;
+  trackEl.src = `${src}.txt`;
   trackEl.srclang = "ru";
   trackEl.label = "Russian";
   trackEl.default = true;
@@ -71,9 +73,11 @@ const createVideo = (parentEl, src) => {
   });
 
   videoEl.addEventListener('timeupdate', (e) => {
-    if (e.target.currentTime >= 6) {
-      //videoEl.pause();
-    }
+    // if (e.target.currentTime >= 6) {
+    //   //videoEl.pause();
+    // }
+
+    countEl.innerText = e.target.currentTime;
   });
 
   // videoEl.addEventListener('loadstart', (e) => { 
@@ -133,7 +137,7 @@ muteEl.addEventListener('click', (e) => {
 //   }, 3000);
 // });
 
-createVideo(messEl, './video/elena_3_14');
+createVideo(messEl, './video/elena_3_13_hd');
 
 const getTime = (duration = 0, current = 0) => {
     const remind = duration - current;

@@ -9,7 +9,7 @@ export default class Connector extends Canvas {
         this.canvas = window.canvas || document.querySelector('#canvas');
         this.selected = null;
         this.modal = new Modal();
-        console.log(this.modal.menu);
+        //console.log(this.modal.menu);
     }
 
     create(connector, label = this.lang.connectorLabelDefault) {

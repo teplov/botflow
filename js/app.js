@@ -49,12 +49,12 @@ jsPlumb.ready(() => {
     instance.Conn = new Connector(instance);
     instance.Report = new Report(instance);
 
-    window.mdEditor = new SimpleMDE({ 
-        element: document.getElementById("mde"),
-        status: false,
-        spellChecker: false,
-        toolbar: ["bold", "italic", "|", "quote", "link", "image", "|", "preview", "guide"], 
-    });
+    // window.mdEditor = new SimpleMDE({ 
+    //     element: document.getElementById("mde"),
+    //     status: false,
+    //     spellChecker: false,
+    //     toolbar: ["bold", "italic", "|", "quote", "link", "image", "|", "preview", "guide"], 
+    // });
    
     jsPlumb.fire("Loaded", instance);
     instance.setZoom(zoom);
@@ -74,23 +74,29 @@ jsPlumb.ready(() => {
             instance.empty(canvas);
         }
 
-        for (let i in data) {
-            const item = data[i];
-            instance.Canvas.load(item.id, item.data || item.text, item.type, item.x, item.y);
-        }
+        jsPlumb.batch(function() {
+            for (let i in data) {
+                const item = data[i];
+                instance.Canvas.load(item.id, item.data || item.text, item.type, item.x, item.y);
+            }
 
-        for (let i in data) {
-            const item = data[i];
-            item.suggestions.forEach((suggest) => {
-                instance.Conn.load(item.id, suggest.target, suggest.text, item.type);
-            });
-        }
+            for (let i in data) {
+                const item = data[i];
+                item.suggestions.forEach((suggest) => {
+                    instance.Conn.load(item.id, suggest.target, suggest.text, item.type);
+                });
+            }
+        });
 
         Config.toolbar.filename.innerText = filename;
         instance.Report.create();
     };
 
+    console.time("loader");
+    jsPlumb.setSuspendDrawing(true);
     loader();
+    jsPlumb.setSuspendDrawing(false, true);
+    console.timeEnd("loader");
 
     instance.bind("dblclick", (i) => {
         instance.Conn.editLabel(i);
@@ -103,7 +109,7 @@ jsPlumb.ready(() => {
     });
 
     instance.bind("connection", (i, e) => {
-        console.log('connection');
+        //console.log('connection');
         instance.Conn.create(i);
         instance.Report.create();
     });
