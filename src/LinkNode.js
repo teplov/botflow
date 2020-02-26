@@ -13,7 +13,7 @@ export default class LinkNode extends Node {
         super.create(id, x, y, data);
         this.node.dataset.data = JSON.stringify(this.data);
         this.node.appendChild(this._createLabel());
-        this._addEndpoints(this.node, [], ['TopCenter']);
+        this._addEndpoints(this.node, ['BottomCenter'], ["TopCenter"]);
         jsp.repaintEverything();
         jsp.Report.create();
     }

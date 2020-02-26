@@ -18,7 +18,7 @@ let interval = null;
 const createVideo = (parentEl, src) => {
   videoEl = document.createElement('video');
   videoEl.id = 'video';
-  videoEl.muted = true;
+  videoEl.muted = false;
   videoEl.autoplay = true;
 
   const sourceEl = document.createElement('source');
@@ -54,12 +54,12 @@ const createVideo = (parentEl, src) => {
       }
     }
     console.log('loaded');
-      // findCapter('Hello', (cue) => {
-      //   videoEl.currentTime = cue.end;
-      //   console.log(cue);
-      //   videoEl.play();
-      // });
-      videoEl.play();
+      findCapter('Hello', (cue) => {
+        videoEl.currentTime = cue.end;
+        console.log(cue);
+        videoEl.play();
+      });
+      //videoEl.play();
   });
 
   
@@ -137,7 +137,7 @@ muteEl.addEventListener('click', (e) => {
 //   }, 3000);
 // });
 
-createVideo(messEl, './video/elena_3_13_hd');
+createVideo(messEl, '../data/video/elena_4_4_hd');
 
 const getTime = (duration = 0, current = 0) => {
     const remind = duration - current;
