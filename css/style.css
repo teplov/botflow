@@ -223,9 +223,9 @@ BODY {
     transition-delay: 0s;
 }
 
-#preview {
+/* #preview {
     max-width: 50vw;
-}
+} */
 
 #output.visible, #preview.visible {
     visibility: visible;
