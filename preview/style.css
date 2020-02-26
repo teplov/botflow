@@ -1,0 +1,4 @@
+#preview .chat-retail-form__main {
+    width: 100% !important;
+    height: calc(100vh - 80px) !important;
+}
