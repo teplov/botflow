@@ -73,6 +73,11 @@ const toolbar = {
     file: document.querySelector('#file'),
 };
 
+const ui = {
+    overlay: document.querySelector('#overlay'),
+    output: document.querySelector('#output'),
+};
+
 const panel = {
     output: document.querySelector('#output'),
 }
@@ -128,5 +133,6 @@ export default {
     storageScenarionName,
     storageSettingsName,
     labelColor,
-    labelIcon
+    labelIcon,
+    ui
 };

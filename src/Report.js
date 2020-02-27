@@ -32,7 +32,7 @@ export default class Report {
         });
 
         this.JSON.filename = Config.toolbar.filename.innerText || Config.appname;
-        Config.panel.output.innerHTML = this._syntaxHighlight(this.JSON);
+        //Config.panel.output.innerHTML = this._syntaxHighlight(this.JSON);
         this.save();
     }
 
@@ -44,6 +44,10 @@ export default class Report {
         this.JSON = newData;
         this.save();
         this.instance.repaintEverything();
+    }
+
+    view() {
+        Config.panel.output.innerHTML = this._syntaxHighlight(this.JSON);
     }
 
     save() {

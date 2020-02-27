@@ -33,7 +33,7 @@ BODY {
 
 #workspace {
     width: 100vw;
-    height: calc(100vh - 60px);
+    height: 100vh;
     background-color: #eee;
     display: inline-block;
     position: absolute;
@@ -41,6 +41,10 @@ BODY {
     box-sizing: border-box;
     z-index: 0;
     top: 0px;
+}
+
+#overlay {
+    /* display: none; */
 }
 
 #zoomToolbar {
@@ -215,8 +219,8 @@ BODY {
     padding: 5px; 
     box-sizing: border-box;
     background-color: #fefefe;
-    visibility: hidden;
-    display: block;
+    /* visibility: hidden; */
+    display: none;
     font-family: 'Courier New', monospace;
     font-weight: 400;
     transition-property: right;
@@ -226,12 +230,12 @@ BODY {
 }
 
 #preview {
-    max-width: 50vw;
+    /* max-width: 50vw; */
 }
 
 #output.visible, #preview.visible {
-    visibility: visible;
-    /* display: block; */
+    /* visibility: visible; */
+    display: block;
 }
 
 .string { color: green; }

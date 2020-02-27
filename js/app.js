@@ -55,6 +55,7 @@ jsPlumb.ready(() => {
 
 
     const loader = (json = null) => {
+        Config.ui.overlay.style.display = 'block';
         let data = {};
         let filename = Config.appname;
         if (!json) {
@@ -85,6 +86,7 @@ jsPlumb.ready(() => {
 
         Config.toolbar.filename.innerText = filename;
         instance.Report.create();
+        Config.ui.overlay.style.display = 'none';
     };
 
     jsPlumb.setSuspendDrawing(true);
@@ -237,9 +239,11 @@ jsPlumb.ready(() => {
     // });
     
     Config.toolbar.codeview.addEventListener('click', (e) => {
-        instance.Report.create();
-        const output = document.querySelector('#output');
-        output.classList.toggle('visible');
+        if (!Config.ui.output.classList.contains('visible')) {
+            instance.Report.create();
+            instance.Report.view();
+        }
+        Config.ui.output.classList.toggle('visible');
         amplitude.getInstance().logEvent('Code Review');
     });
     
@@ -252,6 +256,7 @@ jsPlumb.ready(() => {
     });
 
     Config.toolbar.file.addEventListener('change', (e) => {
+        //Config.ui.overlay.style.display = 'block';
         const file = e.target.files[0];
         const reader = new FileReader();
         reader.readAsText(file);
