@@ -34,12 +34,13 @@ BODY {
 #workspace {
     width: 100vw;
     height: calc(100vh - 60px);
-    //border: 1px solid red;
     background-color: #eee;
     display: inline-block;
-    position: relative;
+    position: absolute;
     overflow: scroll;
     box-sizing: border-box;
+    z-index: 0;
+    top: 0px;
 }
 
 #zoomToolbar {
@@ -141,6 +142,7 @@ BODY {
 
 #toolbar {
     padding:5px;
+    z-index: 2;
     /* width: 100vw;
     height: 40px;
     background-color: #eee;
@@ -223,9 +225,9 @@ BODY {
     transition-delay: 0s;
 }
 
-/* #preview {
+#preview {
     max-width: 50vw;
-} */
+}
 
 #output.visible, #preview.visible {
     visibility: visible;

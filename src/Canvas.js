@@ -28,19 +28,6 @@ export default class Canvas {
         const nodeExist = canvas.querySelectorAll('.node').length;
         let type = 'start';
         if (nodeExist) type = 'text';
-        // if (type == 'start') {
-        //     this.nodes[id] = new TextNode(id, this.instance.getContainer());
-        //     this.nodes[id].create(x, y, label);
-        // } else {
-        //     this.nodes[id] = new VideoNode(id, this.instance.getContainer());
-        //     this.nodes[id].create(x, y, {file: 'test.mp4', text: 'Video description'});
-        // }
-
-        // this._addEndpoints(id, ['BottomCenter'], ["TopCenter"]);
-        // // обновляем report если произошло перемещение node
-        // this.instance.draggable(this.nodes[id].node, {
-        //     stop: () => this.instance.Report.create()
-        // });
         this._createNode(id, x, y, label, type);
     }
 
@@ -95,39 +82,40 @@ export default class Canvas {
         }
     }
 
-    _createLabel(text) {
-        const nodeLabel = document.createElement('span');
-        nodeLabel.className = 'node_label';
-        nodeLabel.innerText = text;
-        return nodeLabel
-    }
+    // _createLabel(text) {
+    //     const nodeLabel = document.createElement('span');
+    //     nodeLabel.className = 'node_label';
+    //     nodeLabel.innerText = text;
+    //     return nodeLabel
+    // }
 
-    _createVideoLabel(data) {
-        const file = document.createElement('b');
-        file.innerText = data.file;
-        const nodeLabel = document.createElement('span');
-        nodeLabel.className = 'node_label';
-        nodeLabel.appendChild(file);
-        nodeLabel.appendChild(document.createElement('br'));
-        nodeLabel.innerHTML += data.text || data;
-        return nodeLabel
-    }
+    // _createVideoLabel(data) {
+    //     const file = document.createElement('b');
+    //     file.innerText = data.file;
+    //     const nodeLabel = document.createElement('span');
+    //     nodeLabel.className = 'node_label';
+    //     nodeLabel.appendChild(file);
+    //     nodeLabel.appendChild(document.createElement('br'));
+    //     nodeLabel.innerHTML += data.text || data;
+    //     return nodeLabel
+    // }
 
-    _createMarker(text = this.lang.nodeMarkerStart) {
-        const nodeLabel = document.createElement('span');
-        const nodeMarker = document.createElement('div');
-        //nodeLabel.innerText = text;
-        nodeMarker.title = text;
-        nodeLabel.setAttribute('uk-icon', 'icon:' + Config.labelIcon[text]);
-        nodeMarker.classList.add('type_label', `label_${Config.labelColor[text]}`);
-        nodeMarker.appendChild(nodeLabel);
-        return nodeMarker
-    }
+    // _createMarker(text = this.lang.nodeMarkerStart) {
+    //     const nodeLabel = document.createElement('span');
+    //     const nodeMarker = document.createElement('div');
+    //     //nodeLabel.innerText = text;
+    //     nodeMarker.title = text;
+    //     nodeLabel.setAttribute('uk-icon', 'icon:' + Config.labelIcon[text]);
+    //     nodeMarker.classList.add('type_label', `label_${Config.labelColor[text]}`);
+    //     nodeMarker.appendChild(nodeLabel);
+    //     return nodeMarker
+    // }
 
     _deselect() {
         this.canvas.querySelectorAll('.node').forEach(el => el.classList.add('deselected'));
         this.instance.selectEndpoints().setPaintStyle({ fill:"#000", strokeWidth:2, stroke: "#fff" });
         this.instance.getConnections().forEach(conn => conn.setPaintStyle({ stroke:"#000", strokeWidth:3 }));
+        //this.instance.clearDragSelection();
     }
 
     _editLabel(e) {
@@ -169,17 +157,4 @@ export default class Canvas {
     _nl2br(text) {
         return text.replace(/\\n/gi, '<br>')
     }
-
-    // _addEndpoints(toId, sourceAnchors, targetAnchors) {
-    //     for (let i = 0; i < sourceAnchors.length; i++) {
-    //         const sourceUUID = toId + sourceAnchors[i];
-    //         //this.instance.makeSource(toId, {maxConnections: -1});
-    //         this.instance.addEndpoint(toId, Config.sourceEndpoint, { anchor: sourceAnchors[i], uuid: sourceUUID, isSource: true, connectionsDetachable: false });
-    //     }
-    //     for (let j = 0; j < targetAnchors.length; j++) {
-    //         const targetUUID = toId + targetAnchors[j];
-    //         //this.instance.makeTarget(toId, {maxConnections: -1});
-    //         this.instance.addEndpoint(toId, Config.targetEndpoint, { anchor: targetAnchors[j], uuid: targetUUID, isTarget: true, connectionsDetachable: true });
-    //     }
-    // };
 }

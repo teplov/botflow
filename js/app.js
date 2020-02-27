@@ -48,16 +48,11 @@ jsPlumb.ready(() => {
     instance.WidgetNode = new WidgetNode(window.canvas, instance);
     instance.Conn = new Connector(instance);
     instance.Report = new Report(instance);
+    instance.dragSelect = dragSelect;
 
-    // window.mdEditor = new SimpleMDE({ 
-    //     element: document.getElementById("mde"),
-    //     status: false,
-    //     spellChecker: false,
-    //     toolbar: ["bold", "italic", "|", "quote", "link", "image", "|", "preview", "guide"], 
-    // });
-   
-    jsPlumb.fire("Loaded", instance);
-    instance.setZoom(zoom);
+
+    var selectableObjects=[];
+
 
     const loader = (json = null) => {
         let data = {};
@@ -92,11 +87,9 @@ jsPlumb.ready(() => {
         instance.Report.create();
     };
 
-    console.time("loader");
     jsPlumb.setSuspendDrawing(true);
     loader();
     jsPlumb.setSuspendDrawing(false, true);
-    console.timeEnd("loader");
 
     instance.bind("dblclick", (i) => {
         instance.Conn.editLabel(i);
@@ -134,7 +127,7 @@ jsPlumb.ready(() => {
 
     canvas.addEventListener('click', (e) => { 
         if (e.target === window.canvas) {
-            instance.Canvas._deselect();
+          //  instance.Canvas._deselect();
         }
     });
 
@@ -212,12 +205,14 @@ jsPlumb.ready(() => {
 
     Config.toolbar.zoomIn.addEventListener('click', (e) => {
         zoom += 0.1;
+        zoom = Number((zoom).toFixed(1));
         Config.toolbar.zoomValue.innerText = parseInt(zoom * 100, 10) + '%';
         setZoom(zoom, instance, [0.5, 0.5], canvas);
     });
 
     Config.toolbar.zoomOut.addEventListener('click', (e) => {
         zoom -= 0.1;
+        zoom = Number((zoom).toFixed(1));
         if (zoom <= 0) return;
         Config.toolbar.zoomValue.innerText = parseInt(zoom * 100, 10) + '%';
         setZoom(zoom, instance, [0.5, 0.5], canvas);
@@ -276,7 +271,55 @@ jsPlumb.ready(() => {
       
         el.style["transform"] = s;
         instance.setZoom(zoom);    
+        instance.dragSelect(zoom);
       };
+
+    
+      jsPlumb.fire("Loaded", instance);
+      instance.setZoom(zoom);
+      instance.dragSelect(zoom);
+
+
+    var selector = document.createElement('div');
+    selector.setAttribute("id", "selector");
+    selector.style.position = 'absolute';
+    selector.style.background = 'rgba(0, 0, 255, 0.1)';
+    selector.style.border = '1px solid rgba(0, 0, 255, 0.45)';
+    selector.style.display = 'none';
+    selector.style.pointerEvents = 'none';
+    selector.style.left = "0px";
+    selector.style.top = "0px";
+    canvas.append(selector);
+
+
+    function dragSelect(zoom = 1) {
+        console.log(zoom);
+        if (window.ds) {
+            console.log('old DS');
+            window.ds.stop();
+        }
+
+            console.log('new DS');
+            window.ds = new DragSelect({
+                selectables: document.querySelectorAll('.node'),
+                selector: document.getElementById('selector'),
+                zoom,
+                onElementSelect: e=>{
+                instance.addToDragSelection(e);
+                e.classList.remove('deselected');
+                selectableObjects.push(e);
+                },
+                onElementUnselect: e=>{
+                e.classList.add('deselected');
+                instance.clearDragSelection();
+                selectableObjects.forEach(function (item){
+                    var x=selectableObjects.indexOf(item);
+                    selectableObjects.splice(x,1);
+                });
+                },
+                multiSelectKeys: ['ctrlKey', 'shiftKey', 'metaKey'],  // special keys that allow multiselection.
+            });
+    }
 
     
 });

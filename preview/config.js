@@ -4,6 +4,7 @@ window.sberCareChat.init({
     //botScenarioUrl: 'https://chatbotflow.netlify.com/data/elena_bot_4.json',   
     crossOrigin: true,
     videoSrc: '/data/video/', 
+    videoQuality: 'sd',
     startForm: "Chat", // 'Chat' | 'Icon'
     mainBundlePath: "./preview/2.1.7/",
     mountContainerId: 'preview',

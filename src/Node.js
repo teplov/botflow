@@ -35,7 +35,7 @@ export default class Node {
             }
         });
 
-        this.node.addEventListener('click', e => this._select());
+        //this.node.addEventListener('click', e => this._select());
         this.node.addEventListener('dblclick', e => this.edit());
     }
 
@@ -65,12 +65,16 @@ export default class Node {
     _select() {
         this._deselect();
         this.node.classList.remove('deselected');
+        this.instance.addToDragSelection(this.node);
     }
 
     _deselect() {
         canvas.querySelectorAll('.node').forEach(el => el.classList.add('deselected'));
         this.instance.selectEndpoints().setPaintStyle({ fill:"#000", strokeWidth:2, stroke: "#fff" });
         this.instance.getConnections().forEach(conn => conn.setPaintStyle({ stroke:"#000", strokeWidth:3 }));
+        console.log('clear selection');
+        this.instance.clearDragSelection();
+        ds.clearSelection();
     }
 
     _createLabel(text) {
