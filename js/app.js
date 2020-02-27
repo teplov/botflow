@@ -49,6 +49,7 @@ jsPlumb.ready(() => {
     instance.Conn = new Connector(instance);
     instance.Report = new Report(instance);
     instance.dragSelect = dragSelect;
+    instance.canvasZoom = 1;
 
 
     var selectableObjects=[];
@@ -100,6 +101,7 @@ jsPlumb.ready(() => {
     });
 
     instance.bind("click", (i) => {
+        console.log('Con');
         instance.Conn.select(i);
         Config.toolbar.info.innerText = `Connection: ${i.sourceId} -> ${i.targetId}`;
     });
@@ -132,7 +134,7 @@ jsPlumb.ready(() => {
 
     canvas.addEventListener('click', (e) => { 
         if (e.target === window.canvas) {
-          //  instance.Canvas._deselect();
+            instance.Canvas._deselect();
         }
     });
 
@@ -211,19 +213,19 @@ jsPlumb.ready(() => {
     });
 
     Config.toolbar.zoomIn.addEventListener('click', (e) => {
-        zoom += 0.1;
-        zoom = Number((zoom).toFixed(1));
-        Config.toolbar.zoomValue.innerText = parseInt(zoom * 100, 10) + '%';
-        setZoom(zoom, instance, [0.5, 0.5], canvas);
+        instance.canvasZoom += 0.1;
+        instance.canvasZoom = Number((instance.canvasZoom).toFixed(1));
+        Config.toolbar.zoomValue.innerText = parseInt(instance.canvasZoom * 100, 10) + '%';
+        setZoom(instance.canvasZoom, instance, [0.5, 0.5], canvas);
         amplitude.getInstance().logEvent('Zoom In');
     });
 
     Config.toolbar.zoomOut.addEventListener('click', (e) => {
-        zoom -= 0.1;
-        zoom = Number((zoom).toFixed(1));
-        if (zoom <= 0) return;
-        Config.toolbar.zoomValue.innerText = parseInt(zoom * 100, 10) + '%';
-        setZoom(zoom, instance, [0.5, 0.5], canvas);
+        instance.canvasZoom -= 0.1;
+        instance.canvasZoom = Number((instance.canvasZoom).toFixed(1));
+        if (instance.canvasZoom <= 0) return;
+        Config.toolbar.zoomValue.innerText = parseInt(instance.canvasZoom * 100, 10) + '%';
+        setZoom(instance.canvasZoom, instance, [0.5, 0.5], canvas);
         amplitude.getInstance().logEvent('Zoom Out');
     });
 
@@ -248,11 +250,19 @@ jsPlumb.ready(() => {
     });
     
     Config.toolbar.preview.addEventListener('click', (e) => {
-        instance.Report.create();
-        window.sberCare.setBotScenario(instance.Report.data);
-        const preview = document.querySelector('#preview');
-        preview.classList.toggle('visible');
-        amplitude.getInstance().logEvent('Chat Preview');
+        Config.ui.preview.classList.toggle('visible');
+        if (Config.ui.preview.classList.contains('visible')) {
+            instance.Report.create();
+            window.sberCare.setBotScenario(instance.Report.data);
+            amplitude.getInstance().logEvent('Chat Preview');
+        } 
+    });
+
+    Config.toolbar.help.addEventListener('click', (e) => {
+        Config.ui.help.classList.toggle('visible');
+        if (Config.ui.help.classList.contains('visible')) {
+            amplitude.getInstance().logEvent('Help');
+        } 
     });
 
     Config.toolbar.file.addEventListener('change', (e) => {
@@ -265,7 +275,7 @@ jsPlumb.ready(() => {
                 const jsonData = event.target.result;
                 loader(jsonData);
                 amplitude.getInstance().logEvent('File Loaded');
-            });
+            }); 
         }
     });
 
@@ -285,15 +295,15 @@ jsPlumb.ready(() => {
         }
       
         el.style["transform"] = s;
-        instance.setZoom(zoom);    
-        instance.dragSelect(zoom);
+        instance.setZoom(instance.canvasZoom);    
+        instance.dragSelect();
       };
 
     
       jsPlumb.fire("Loaded", instance);
       amplitude.getInstance().logEvent('Refresh editor');
-      instance.setZoom(zoom);
-      instance.dragSelect(zoom);
+      instance.setZoom(instance.canvasZoom);
+      instance.dragSelect();
 
 
     var selector = document.createElement('div');
@@ -308,7 +318,7 @@ jsPlumb.ready(() => {
     canvas.append(selector);
 
 
-    function dragSelect(zoom = 1) {
+    function dragSelect() {
         if (window.ds) {
             window.ds.stop();
         }
@@ -316,19 +326,16 @@ jsPlumb.ready(() => {
             window.ds = new DragSelect({
                 selectables: document.querySelectorAll('.node'),
                 selector: document.getElementById('selector'),
-                zoom,
+                area: document.getElementById('canvas'),
+                zoom: instance.canvasZoom,
                 onElementSelect: e=>{
-                instance.addToDragSelection(e);
-                e.classList.remove('deselected');
-                selectableObjects.push(e);
+                    instance.addToDragSelection(e);
+                    e.classList.remove('deselected');
+                    selectableObjects.push(e);
                 },
                 onElementUnselect: e=>{
-                e.classList.add('deselected');
-                instance.clearDragSelection();
-                selectableObjects.forEach(function (item){
-                    var x=selectableObjects.indexOf(item);
-                    selectableObjects.splice(x,1);
-                });
+                    e.classList.add('deselected');
+                    instance.clearDragSelection();
                 },
                 multiSelectKeys: ['ctrlKey', 'shiftKey', 'metaKey'],  // special keys that allow multiselection.
             });

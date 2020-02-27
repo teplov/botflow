@@ -7,7 +7,7 @@ window.sberCareChat.init({
     videoQuality: 'sd',
     startForm: "Chat", // 'Chat' | 'Icon'
     mainBundlePath: "./preview/2.1.7/",
-    mountContainerId: 'preview',
+    mountContainerId: 'chat_container',
     theme: {
         name: 'default' // "default" | "light" | "dark"
     },

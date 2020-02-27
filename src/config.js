@@ -65,6 +65,7 @@ const toolbar = {
     export: document.querySelector('#toolbar .export'),
     filename: document.querySelector('#toolbar .filename'),
     codeview: document.querySelector('#toolbar .codeview'),
+    help: document.querySelector('#toolbar .help'),
     preview: document.querySelector('#toolbar .preview'),
     zoomIn: document.querySelector('#zoomToolbar .zoomIn'),
     zoomValue: document.querySelector('#zoomToolbar .zoomValue'),
@@ -76,6 +77,8 @@ const toolbar = {
 const ui = {
     overlay: document.querySelector('#overlay'),
     output: document.querySelector('#output'),
+    preview: document.querySelector('#preview'),
+    help: document.querySelector('#help'),
 };
 
 const panel = {

@@ -33,14 +33,15 @@ BODY {
 
 #workspace {
     width: 100vw;
-    height: 100vh;
+    /* height: 100vh; */
     background-color: #eee;
     display: inline-block;
     position: absolute;
     overflow: scroll;
     box-sizing: border-box;
     z-index: 0;
-    top: 0px;
+    top: 50px;
+    bottom: 0px;
 }
 
 #overlay {
@@ -204,7 +205,7 @@ BODY {
     user-select: none;    
 }     */
 
-#output, #preview {
+.sidebar {
     margin: 0;
     position: absolute;
     right: 0;
@@ -233,7 +234,7 @@ BODY {
     /* max-width: 50vw; */
 }
 
-#output.visible, #preview.visible {
+.sidebar.visible {
     /* visibility: visible; */
     display: block;
 }

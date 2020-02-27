@@ -112,7 +112,7 @@ export default class Canvas {
     // }
 
     _deselect() {
-        this.canvas.querySelectorAll('.node').forEach(el => el.classList.add('deselected'));
+        //this.canvas.querySelectorAll('.node').forEach(el => el.classList.add('deselected'));
         this.instance.selectEndpoints().setPaintStyle({ fill:"#000", strokeWidth:2, stroke: "#fff" });
         this.instance.getConnections().forEach(conn => conn.setPaintStyle({ stroke:"#000", strokeWidth:3 }));
         //this.instance.clearDragSelection();

@@ -37,6 +37,7 @@ export default class Node {
 
         //this.node.addEventListener('click', e => this._select());
         this.node.addEventListener('dblclick', e => this.edit());
+        this.instance.dragSelect();
     }
 
     edit() {
