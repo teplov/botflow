@@ -94,6 +94,7 @@ jsPlumb.ready(() => {
     instance.bind("dblclick", (i) => {
         instance.Conn.editLabel(i);
         instance.Report.create();
+        amplitude.getInstance().logEvent('Edit Connection Label');
     });
 
     instance.bind("click", (i) => {
@@ -105,6 +106,7 @@ jsPlumb.ready(() => {
         //console.log('connection');
         instance.Conn.create(i);
         instance.Report.create();
+        amplitude.getInstance().logEvent('Create connection');
     });
 
 
@@ -122,6 +124,7 @@ jsPlumb.ready(() => {
             //instance.Canvas.create(e.offsetX, e.offsetY);
             setCurrentNodeType(window.currentNodeType, e.offsetX - 20, e.offsetY - 20);
             instance.Report.create();
+            amplitude.getInstance().logEvent('Create Node');
         }
     });
 
@@ -181,6 +184,7 @@ jsPlumb.ready(() => {
         canvas.querySelectorAll('.node:not(.deselected)').forEach(el => instance.Canvas.delete(el));
         instance.Conn.delete();
         instance.Report.create();
+        amplitude.getInstance().logEvent('Delete element');
     });
 
     Config.toolbar.addType.addEventListener('click', (e) => {
@@ -201,6 +205,7 @@ jsPlumb.ready(() => {
 
     Config.toolbar.export.addEventListener('click', (e) => {
         instance.Report.download();
+        amplitude.getInstance().logEvent('Save');
     });
 
     Config.toolbar.zoomIn.addEventListener('click', (e) => {
@@ -208,6 +213,7 @@ jsPlumb.ready(() => {
         zoom = Number((zoom).toFixed(1));
         Config.toolbar.zoomValue.innerText = parseInt(zoom * 100, 10) + '%';
         setZoom(zoom, instance, [0.5, 0.5], canvas);
+        amplitude.getInstance().logEvent('Zoom In');
     });
 
     Config.toolbar.zoomOut.addEventListener('click', (e) => {
@@ -216,6 +222,7 @@ jsPlumb.ready(() => {
         if (zoom <= 0) return;
         Config.toolbar.zoomValue.innerText = parseInt(zoom * 100, 10) + '%';
         setZoom(zoom, instance, [0.5, 0.5], canvas);
+        amplitude.getInstance().logEvent('Zoom Out');
     });
 
     // Config.toolbar.lang.addEventListener('click', (e) => {
@@ -233,6 +240,7 @@ jsPlumb.ready(() => {
         instance.Report.create();
         const output = document.querySelector('#output');
         output.classList.toggle('visible');
+        amplitude.getInstance().logEvent('Code Review');
     });
     
     Config.toolbar.preview.addEventListener('click', (e) => {
@@ -240,6 +248,7 @@ jsPlumb.ready(() => {
         window.sberCare.setBotScenario(instance.Report.data);
         const preview = document.querySelector('#preview');
         preview.classList.toggle('visible');
+        amplitude.getInstance().logEvent('Chat Preview');
     });
 
     Config.toolbar.file.addEventListener('change', (e) => {
@@ -250,6 +259,7 @@ jsPlumb.ready(() => {
             reader.addEventListener("load", (event) => {
                 const jsonData = event.target.result;
                 loader(jsonData);
+                amplitude.getInstance().logEvent('File Loaded');
             });
         }
     });
@@ -276,6 +286,7 @@ jsPlumb.ready(() => {
 
     
       jsPlumb.fire("Loaded", instance);
+      amplitude.getInstance().logEvent('Refresh editor');
       instance.setZoom(zoom);
       instance.dragSelect(zoom);
 
@@ -293,13 +304,10 @@ jsPlumb.ready(() => {
 
 
     function dragSelect(zoom = 1) {
-        console.log(zoom);
         if (window.ds) {
-            console.log('old DS');
             window.ds.stop();
         }
 
-            console.log('new DS');
             window.ds = new DragSelect({
                 selectables: document.querySelectorAll('.node'),
                 selector: document.getElementById('selector'),
@@ -319,6 +327,8 @@ jsPlumb.ready(() => {
                 },
                 multiSelectKeys: ['ctrlKey', 'shiftKey', 'metaKey'],  // special keys that allow multiselection.
             });
+
+        amplitude.getInstance().logEvent('Drag Select');
     }
 
     
