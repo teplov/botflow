@@ -1,12 +1,24 @@
-window.sberCareChat.init({
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat test</title>
+    <script src="./2.1.7/loader_bundle_chat.min.js"></script>
+</head>
+<body>
+    <div id="chat_container"></div>
+    <script>
+        window.sberCareChat.init({
     mode: 'full',
     withBot: true,
-    //botScenarioUrl: 'https://chatbotflow.netlify.com/data/elena_bot_4.json',   
+    jsonSrc: '/data/json/',
+    botScenarioUrl: '/data/json/01.welcome.1.json',   
     crossOrigin: true,
     videoSrc: '/data/video/', 
     videoQuality: 'sd',
     startForm: "Chat", // 'Chat' | 'Icon'
-    mainBundlePath: "./preview/2.1.7/",
+    mainBundlePath: "./2.1.7/",
     mountContainerId: 'chat_container',
     theme: {
         name: 'default' // "default" | "light" | "dark"
@@ -45,3 +57,9 @@ dictionary: {
 
 
 
+
+    </script>
+
+
+</body>
+</html>

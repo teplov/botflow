@@ -137,7 +137,7 @@ muteEl.addEventListener('click', (e) => {
 //   }, 3000);
 // });
 
-createVideo(messEl, '../data/video/elena_4_4_hd');
+createVideo(messEl, '../data/video/elena_3_2_sd');
 
 const getTime = (duration = 0, current = 0) => {
     const remind = duration - current;

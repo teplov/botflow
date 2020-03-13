@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Demo</title>
+    <style>
+        @font-face {
+            font-family: "SBSansInterface-Regular";
+            src: url("SBSansDisplay-Regular.otf");
+        }
+
+        #chat_div .chat-retail-form__main,
+        #chat_div .chat-retail-theme__dark .chat-retail-footer,
+        #chat_div .chat-ui-field_theme_dark .chat-ui-field__text textarea {
+            background-color: transparent;
+        }
+
+        #chat_div .chat-retail-theme__dark .chat-ui-textarea {
+            border: none !important;
+        }
+
+        #chat_div .chat-retail-form__main {
+            animation: none;
+            -webkit-animation: none;
+        }
+    </style>
+</head>
+<body>
+    <script src="./2.1.7/loader_bundle_chat.min.js"></script>
+    <div id="chat_div"></div>
+
+    <script>
+
+setUserAgent(window, 'Mozilla/5.0 (iPhone; CPU iPhone OS 11_0 like Mac OS X) AppleWebKit/604.1.38 (KHTML, like Gecko) Version/11.0 Mobile/15A372 Safari/604.1');
+      
+
+      const search = location.search.substring(1);
+      const params = search && JSON.parse(
+          '{"' +
+          decodeURI(search)
+              .replace(/"/g, '\\"')
+              .replace(/&/g, '","')
+              .replace(/=/g, '":"') +
+          '"}'
+      );
+
+      window.sberCareChat.init({
+    mode: 'full',
+    withBot: true,
+    jsonSrc: '/data/json/',
+    botScenarioUrl: '/data/json/01.welcome.1.json', 
+    crossOrigin: true,
+    videoSrc: '/data/video/', 
+    videoQuality: 'sd',
+    startForm: "Chat", // 'Chat' | 'Icon'
+    mainBundlePath: "./2.1.7/",
+    mountContainerId: 'chat_div',
+    theme: {
+        name: 'default' // "default" | "light" | "dark"
+    },
+chatVersion: '2.1.7',
+headerIsEnabled: false,
+domain: "test2.sberbank.ru", // по умолчанию location.host
+applicationName: "sberCare",
+firstMessage: {
+    enable: true,
+    format: 'markdown', // plain | markdown
+    text:   '![](/images/chatbot_s0061_barabanSmall.gif) Здравствуйте! Я виртуальный помощник от Сбербанка. С радостью отвечу на ваши вопросы!',
+    //text:   'Здравствуйте! Я виртуальный помощник от Сбербанка. С радостью отвечу на ваши вопросы!',
+    suggestions: [
+    {
+        text: 'Что умеет помощник?',
+        order_id: 0
+    },
+    {
+        text: 'Как оформить карту?',
+        order_id: 1
+    }
+]
+},
+// apiRestUrl: 'https://messenger.sberbank.ru:7766/api/device',
+// apiWSUrl: 'wss://messenger.sberbank.ru:7766/api/',
+apiRestUrl: 'https://messenger-t.sberbank.ru/api/device',
+apiWSUrl: 'wss://messenger-t.sberbank.ru/api/',
+dictionary: {
+    headerTitle: "Связь с банком",
+    connectionError: "Пожалуйста, обратитесь в контактный центр, позвоните на номер 900 или +7 495 500-55-50 - для звонков из любой точки мира",
+    botName: "Помощник от Сбербанка"
+}
+});
+
+
+
+
+
+
+    //     window.retailChat.init({
+    //         mountContainerId: 'chat_div', // ссылка на id-элемент контейнера чата
+    //         mainBundlePath: './2.1.7/', // путь к основному файлу виджета чата main_bundle_chat.min.js
+    //         domain: 'sberminor.ru', // доменное имя, по умолчанию берется значение location.host. Позволяет запустить чаты на тестовом сервере
+    //         applicationName: "sberCare", // имя глобального JS-объекта для вызова методов фронтального API, по умолчанию retailChat
+    //         theme: {
+    //             name: params.theme || 'default' // "default" | "light" | "dark"
+    //         },
+    //         startForm: 'Chat',
+    //         headerIsEnabled: false,
+    //         firstMessage: { // Текст первого сообщения в чате
+    //             enable: true,
+    //             format: 'plain', // plain | markdown // формат оформления текста
+    //             text:   'Здравствуйте! Вас приветствует помощник акционера Сбербанка, чем я могу помочь?',
+    //             suggestions: [{
+    //                 text: 'ГОСА',
+    //                 order_id: 0
+    //             }, {
+    //                 text: 'Дивиденды',
+    //                 order_id: 1
+    //             },{
+    //                 text: 'Стоимость акций',
+    //                 order_id: 2
+    //             },
+    //             {
+    //                 text: 'Как купить акции?',
+    //                 order_id: 3
+    //             },
+    //             {
+    //                 text: 'Чистая прибыль',
+    //                 order_id: 4
+    //             }]
+    //         },
+    //         dictionary: {
+    //             headerTitle: "Помощник акционера",
+    //             connectionError: "Пожалуйста, обратитесь в контактный центр, позвоните по номеру 8 (800) 500 87 43",
+    //             botName: "Помощник акционера Сбербанка"
+    //         },
+    //         apiRestUrl: 'https://messenger.sberbank.ru:7766/api/device', // путь для подключения к REST-серверу сообщений Сбербанка
+    //         apiWSUrl: 'wss://messenger.sberbank.ru:7766/api/', // путь для подключения к WebSocket-серверу сообщений Сбербанка
+    //     });
+
+        
+      function setUserAgent(window, userAgent) {
+        // Works on Firefox, Chrome, Opera and IE9+
+        if (navigator.__defineGetter__) {
+            navigator.__defineGetter__('userAgent', function () {
+                return userAgent;
+            });
+        } else if (Object.defineProperty) {
+            Object.defineProperty(navigator, 'userAgent', {
+                get: function () {
+                    return userAgent;
+                }
+            });
+        }
+        // Works on Safari
+        if (window.navigator.userAgent !== userAgent) {
+            var userAgentProp = {
+                get: function () {
+                    return userAgent;
+                }
+            };
+            try {
+                Object.defineProperty(window.navigator, 'userAgent', userAgentProp);
+            } catch (e) {
+                window.navigator = Object.create(navigator, {
+                    userAgent: userAgentProp
+                });
+            }
+        }
+    }
+    </script>
+</body>
+</html>

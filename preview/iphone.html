@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>iPhone chat demo</title>
+    <link rel="stylesheet" href="./style.css">
+</head>
+<body class="light">
+<!-- <div id="container"></div> -->
+<!-- <div id="title">Чат поддержки</div>  -->
+<div id="iphone">
+    <iframe id="chat" src="./chat.html?theme=light"></iframe>
+</div> 
+<!-- <div id="panel">
+    <input id="light" name="theme" value="light" type="radio" checked> <label for="light">Light theme</label> 
+    <input id="dark" name="theme" value="dark" type="radio">  <label for="dark">Dark theme</label> 
+</div> -->
+
+
+  <script>
+
+        document.querySelector('#light').addEventListener('change', e => {
+            console.log(e.target.value);
+            document.body.className = e.target.value;
+            window.frames['chat'].src = './chat.html?theme=light';
+        });
+
+        document.querySelector('#dark').addEventListener('change', e => {
+            console.log(e.target.value);
+            document.body.className = e.target.value;
+            window.frames['chat'].src = './chat.html?theme=dark';
+        });
+
+      
+  </script>
+
+</body>
+</html>
