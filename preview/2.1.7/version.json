@@ -1,6 +1,6 @@
 {
-    "env": "development",
+    "env": "production",
     "name": "partnerBuild",
     "version": "3.0.2",
-    "buildTime": "2020-03-13T13:21:12.850Z"
+    "buildTime": "2020-03-19T20:30:19.677Z"
 }

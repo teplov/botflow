@@ -40,7 +40,7 @@ export default class LinkNode extends Node {
         </div>
         <div id="body" class=" uk-modal-body">
             <label class="uk-text-meta" for="file_video">Ссылка</label>
-            <input class="uk-input" id="data_link" type="text" placeholder="Адрес" value="${this.data}">   
+            <input class="uk-input" id="data_link" type="text" placeholder="address" value="${this.data}">   
         </div>
         <div class="uk-modal-footer uk-text-right">
             <button class="uk-button uk-button-default uk-modal-close" type="button">Cancel</button>

@@ -234,6 +234,11 @@ BODY {
     /* max-width: 550px; */
 }
 
+#preview .chat-retail-form__main {
+    width: auto !important;
+    height: calc(100vh - 80px) !important;
+}
+
 .sidebar.visible {
     /* visibility: visible; */
     display: block;

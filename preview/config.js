@@ -1,6 +1,7 @@
 window.sberCareChat.init({
     mode: 'full',
     withBot: true,
+    jsonSrc: '/data/json/',
     //botScenarioUrl: 'https://chatbotflow.netlify.com/data/elena_bot_4.json',   
     crossOrigin: true,
     videoSrc: '/data/video/', 
@@ -18,21 +19,7 @@ applicationName: "sberCare",
 firstMessage: {
     enable: true,
     format: 'markdown', // plain | markdown
-    text:   '![](/images/chatbot_s0061_barabanSmall.gif) Здравствуйте! Я виртуальный помощник от Сбербанка. С радостью отвечу на ваши вопросы!',
-    //text:   'Здравствуйте! Я виртуальный помощник от Сбербанка. С радостью отвечу на ваши вопросы!',
-    suggestions: [
-    {
-        text: 'Что умеет помощник?',
-        order_id: 0
-    },
-    {
-        text: 'Как оформить карту?',
-        order_id: 1
-    }
-]
 },
-// apiRestUrl: 'https://messenger.sberbank.ru:7766/api/device',
-// apiWSUrl: 'wss://messenger.sberbank.ru:7766/api/',
 apiRestUrl: 'https://messenger-t.sberbank.ru/api/device',
 apiWSUrl: 'wss://messenger-t.sberbank.ru/api/',
 dictionary: {

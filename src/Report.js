@@ -22,6 +22,9 @@ export default class Report {
                 x: parseInt(el.style.left, 10),
                 y: parseInt(el.style.top, 10),
             };
+            if (typeof this.JSON.data[el.dataset.id].data.params == 'string') {
+                this.JSON.data[el.dataset.id].data.params = JSON.parse(this.JSON.data[el.dataset.id].data.params);
+            }
         });
 
         this.instance.getConnections().forEach((i, c) => {

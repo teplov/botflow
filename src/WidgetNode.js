@@ -8,7 +8,8 @@ export default class WidgetNode extends Node {
         this.type = 'widget';
         this.defaultData = {
             endpoint: 'https://',
-            template: '{}'
+            file: '',
+            params: '{}'
         };
     }
 
@@ -41,6 +42,7 @@ export default class WidgetNode extends Node {
 
     edit() {
         super.edit();
+        this.data.params = typeof this.data.params == 'string' ? this.data.params : JSON.stringify(this.data.params);
         window.modal = UIkit.modal.dialog(`
         <button class="uk-modal-close-default" type="button" uk-close></button>
         <div class="uk-modal-header">
@@ -48,9 +50,13 @@ export default class WidgetNode extends Node {
         </div>
         <div id="body" class=" uk-modal-body">
                 <label class="uk-text-meta" for="endpoint">Endpoint</label>
-                <input class="uk-input" id="endpoint" type="text" placeholder="Точка вызова" value="${this.data.endpoint}">   
+                <input class="uk-input" id="endpoint" type="text" placeholder="Адрес виджета" value="${this.data.endpoint}">   
                 <br><br> 
-                <textarea id="template" rows="8" class="uk-textarea">${this.data.template}</textarea>
+                <label class="uk-text-meta" for="file">Файл с данными</label>
+                <input class="uk-input" id="file" type="text" placeholder="Файл с данными" value="${this.data.file}">   
+                <br><br> 
+                <label class="uk-text-meta" for="params">Параметры</label>
+                <textarea id="params" rows="8" class="uk-textarea">${this.data.params}</textarea>
         </div>
         <div class="uk-modal-footer uk-text-right">
             <button class="uk-button uk-button-default uk-modal-close" type="button">Cancel</button>
@@ -62,7 +68,8 @@ export default class WidgetNode extends Node {
             editModal.querySelector("#editor_save").addEventListener('click', (e) => {
                 let data = {};
                 data.endpoint = editModal.querySelector('#endpoint').value;
-                data.template = editModal.querySelector('#template').value;
+                data.file = editModal.querySelector('#file').value;
+                data.params = editModal.querySelector('#params').value;
                 this.save(data);
             });
         });
