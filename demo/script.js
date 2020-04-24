@@ -22,7 +22,7 @@ const createVideo = (parentEl, src) => {
   videoEl.autoplay = true;
 
   const sourceEl = document.createElement('source');
-  sourceEl.src = `${src}.mp4`;
+  sourceEl.src = `${src}_sd.mp4`;
   sourceEl.type= "video/mp4";
   videoEl.appendChild(sourceEl);
 
@@ -137,7 +137,7 @@ muteEl.addEventListener('click', (e) => {
 //   }, 3000);
 // });
 
-createVideo(messEl, '../data/video/elena_3_2_sd');
+createVideo(messEl, '../data/video/vacation/vacation_1.10');
 
 const getTime = (duration = 0, current = 0) => {
     const remind = duration - current;
