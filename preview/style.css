@@ -6,8 +6,7 @@
 
 BODY {
     padding: 0;
-    margin: 0;
-    
+    margin: 0px;
     font-family: 'SBSans', sans-serif;
 }
 
@@ -63,7 +62,7 @@ BODY.dark #container {
     background-size: contain;
     width: calc(100vh / 2.1);
     height: 100vh;
-    top: 0px;
+    top: 10px;
     /* left: calc(100vw / 2 - 200px); */
     z-index: 2;
     position: absolute;

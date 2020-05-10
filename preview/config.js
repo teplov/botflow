@@ -2,7 +2,7 @@ window.sberCareChat.init({
     mode: 'full',
     withBot: true,
     jsonSrc: '/data/json/',
-    //botScenarioUrl: 'https://chatbotflow.netlify.com/data/elena_bot_4.json',   
+    botScenarioUrl: '/data/json/trouble.json',   
     crossOrigin: true,
     videoSrc: '/data/video/', 
     videoQuality: 'sd',

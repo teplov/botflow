@@ -152,29 +152,30 @@ jsPlumb.ready(() => {
         } else if (nodeExist && window.currentNodeType === 'start') {
             type = 'text';
         }
+        const uuid = Math.floor(1000 + Math.random() * 9000);
         switch(type) {
             case 'text':
-                instance.TextNode.create(jsPlumbUtil.uuid(), x, y);
+                instance.TextNode.create(uuid, x, y);
                 window.currentNodeType = 'text';
                 break;
             case 'video':
-                instance.VideoNode.create(jsPlumbUtil.uuid(), x, y);
+                instance.VideoNode.create(uuid, x, y);
                 window.currentNodeType = 'video';
                 break;
             case 'link':
-                instance.LinkNode.create(jsPlumbUtil.uuid(), x, y);
+                instance.LinkNode.create(uuid, x, y);
                 window.currentNodeType = 'link';
                 break;
             case 'anchor':
-                instance.AnchorNode.create(jsPlumbUtil.uuid(), x, y);
+                instance.AnchorNode.create(uuid, x, y);
                 window.currentNodeType = 'anchor';
                 break;
             case 'widget':
-                instance.WidgetNode.create(jsPlumbUtil.uuid(), x, y);
+                instance.WidgetNode.create(uuid, x, y);
                 window.currentNodeType = 'widget';
                 break;
             default:
-                instance.StartNode.create(jsPlumbUtil.uuid(), x, y);
+                instance.StartNode.create(uuid, x, y);
                 window.currentNodeType = 'text';
         }
         Config.toolbar.add.innerHTML = `<span uk-icon="icon: ${Config.labelIcon[window.currentNodeType]}"></span>`;
@@ -259,10 +260,11 @@ jsPlumb.ready(() => {
     });
 
     Config.toolbar.help.addEventListener('click', (e) => {
-        Config.ui.help.classList.toggle('visible');
-        if (Config.ui.help.classList.contains('visible')) {
-            amplitude.getInstance().logEvent('Help');
-        } 
+        // Config.ui.help.classList.toggle('visible');
+        // if (Config.ui.help.classList.contains('visible')) {
+        //     amplitude.getInstance().logEvent('Help');
+        // } 
+        introJs().showHints();
     });
 
     Config.toolbar.file.addEventListener('change', (e) => {
@@ -316,7 +318,6 @@ jsPlumb.ready(() => {
     selector.style.left = "0px";
     selector.style.top = "0px";
     canvas.append(selector);
-
 
     function dragSelect() {
         if (window.ds) {

@@ -1,0 +1,46 @@
+{
+    "filename": "csi",
+    "data": {
+        "dfeafdb7-8274-4373-8f6c-0f1f804dfa32": {
+            "id": "dfeafdb7-8274-4373-8f6c-0f1f804dfa32",
+            "data": "В этом сценарии есть только одна демонстация - это вызов втроенного виджета оценка CSI.\n\n",
+            "type": "start",
+            "suggestions": [
+                {
+                    "text": "Оцените чат",
+                    "target": "0b7a18c7-0623-42bd-bd9e-7894a51c6062"
+                }
+            ],
+            "x": 660,
+            "y": 128
+        },
+        "0b7a18c7-0623-42bd-bd9e-7894a51c6062": {
+            "id": "0b7a18c7-0623-42bd-bd9e-7894a51c6062",
+            "data": {
+                "endpoint": "/csi",
+                "file": "",
+                "params": {}
+            },
+            "type": "widget",
+            "suggestions": [
+                {
+                    "text": "Еще раз",
+                    "target": "7bb8caa5-8e2d-43b2-8ae3-d6da02fdc045"
+                }
+            ],
+            "x": 791,
+            "y": 353
+        },
+        "7bb8caa5-8e2d-43b2-8ae3-d6da02fdc045": {
+            "id": "7bb8caa5-8e2d-43b2-8ae3-d6da02fdc045",
+            "data": {
+                "file": "",
+                "target": "dfeafdb7-8274-4373-8f6c-0f1f804dfa32"
+            },
+            "type": "anchor",
+            "suggestions": [],
+            "x": 682,
+            "y": 536
+        }
+    }
+}

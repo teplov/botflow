@@ -1,0 +1,67 @@
+{
+    "filename": "autocomplete",
+    "data": {
+        "dfeafdb7-8274-4373-8f6c-0f1f804dfa32": {
+            "id": "dfeafdb7-8274-4373-8f6c-0f1f804dfa32",
+            "data": "В этом сценарии есть только одна демонстация - это вызов втроенного виджета списка адресов.\n\n",
+            "type": "start",
+            "suggestions": [
+                {
+                    "text": "Поиск",
+                    "target": "e432daae-caee-4ff0-af80-d69459910375"
+                }
+            ],
+            "x": 659,
+            "y": 47
+        },
+        "7bb8caa5-8e2d-43b2-8ae3-d6da02fdc045": {
+            "id": "7bb8caa5-8e2d-43b2-8ae3-d6da02fdc045",
+            "data": {
+                "file": "",
+                "target": "dfeafdb7-8274-4373-8f6c-0f1f804dfa32"
+            },
+            "type": "anchor",
+            "suggestions": [],
+            "x": 682,
+            "y": 536
+        },
+        "96cc50b1-6455-4a18-a233-9b917561adcc": {
+            "id": "96cc50b1-6455-4a18-a233-9b917561adcc",
+            "data": {
+                "endpoint": "/autocomplete",
+                "file": "list_data.json",
+                "params": {
+                    "searchFields": [
+                        "address",
+                        "phone",
+                        "name"
+                    ],
+                    "itemField": "address",
+                    "resultText": "**${name}**\n ${address}\n **Телефон: ${phone}**"
+                }
+            },
+            "type": "widget",
+            "suggestions": [
+                {
+                    "text": "Давай еще!",
+                    "target": "7bb8caa5-8e2d-43b2-8ae3-d6da02fdc045"
+                }
+            ],
+            "x": 759,
+            "y": 345
+        },
+        "e432daae-caee-4ff0-af80-d69459910375": {
+            "id": "e432daae-caee-4ff0-af80-d69459910375",
+            "data": "Введите название города России",
+            "type": "text",
+            "suggestions": [
+                {
+                    "text": "",
+                    "target": "96cc50b1-6455-4a18-a233-9b917561adcc"
+                }
+            ],
+            "x": 704,
+            "y": 233
+        }
+    }
+}

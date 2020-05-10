@@ -10,7 +10,7 @@
             src: url("SBSansDisplay-Regular.otf");
         }
 
-        #chat_div .chat-retail-form__main,
+        /* #chat_div .chat-retail-form__main,
         #chat_div .chat-retail-theme__dark .chat-retail-footer,
         #chat_div .chat-ui-field_theme_dark .chat-ui-field__text textarea {
             background-color: transparent;
@@ -23,7 +23,7 @@
         #chat_div .chat-retail-form__main {
             animation: none;
             -webkit-animation: none;
-        }
+        } */
     </style>
 </head>
 <body>
@@ -48,8 +48,8 @@ setUserAgent(window, 'Mozilla/5.0 (iPhone; CPU iPhone OS 11_0 like Mac OS X) App
       window.sberCareChat.init({
     mode: 'full',
     withBot: true,
-    jsonSrc: 'https://chatbotflow.ru/data/json/',
-    botScenarioUrl: 'https://chatbotflow.ru/data/json/vacation_2.json',
+    jsonSrc: '/data/json/',
+    botScenarioUrl: '/data/json/sample/default.json',
     crossOrigin: true,
     videoSrc: '/data/video/vacation', 
     videoQuality: 'sd',
@@ -66,8 +66,7 @@ applicationName: "sberCare",
 firstMessage: {
     enable: true,
     format: 'markdown', // plain | markdown
-    text:   '![](/images/chatbot_s0061_barabanSmall.gif) Здравствуйте! Я виртуальный помощник от Сбербанка. С радостью отвечу на ваши вопросы!',
-    //text:   'Здравствуйте! Я виртуальный помощник от Сбербанка. С радостью отвечу на ваши вопросы!',
+    text:   'Здравствуйте! Я виртуальный помощник. С радостью отвечу на ваши вопросы!',
     suggestions: [
     {
         text: 'Что умеет помощник?',
@@ -85,8 +84,8 @@ apiRestUrl: 'https://messenger-t.sberbank.ru/api/device',
 apiWSUrl: 'wss://messenger-t.sberbank.ru/api/',
 dictionary: {
     headerTitle: "Связь с банком",
-    connectionError: "Пожалуйста, обратитесь в контактный центр, позвоните на номер 900 или +7 495 500-55-50 - для звонков из любой точки мира",
-    botName: "Помощник от Сбербанка"
+    connectionError: "Пожалуйста, обратитесь в контактный центр, позвоните на номер XXX или +7 XXX XXX-XX-XX - для звонков из любой точки мира",
+    botName: "Помощник"
 }
 });
 

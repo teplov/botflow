@@ -10,27 +10,65 @@
 <!-- <div id="container"></div> -->
 <!-- <div id="title">Чат поддержки</div>  -->
 <div id="iphone">
-    <iframe id="chat" src="./chat.html?theme=light"></iframe>
+    <iframe id="chat" name="chat" src="./chat.html?theme=light"></iframe>
 </div> 
-<!-- <div id="panel">
-    <input id="light" name="theme" value="light" type="radio" checked> <label for="light">Light theme</label> 
+<div id="panel">
+    <!-- <input id="light" name="theme" value="light" type="radio" checked> <label for="light">Light theme</label> 
     <input id="dark" name="theme" value="dark" type="radio">  <label for="dark">Dark theme</label> 
-</div> -->
+     -->
+     <select id="presets">
+         <option value="/data/json/sample/default.json">Простой пример</option>
+         <option value="/data/json/sample/multitext.json">Несколько текстовых блоков подряд</option>
+         <option value="/data/json/sample/csi.json">Пример с виджетом CSI</option>
+         <option value="/data/json/sample/autocomplete.json">Пример с виджетом поиска по списку</option>
+         <option value="/data/json/sample/game.json">Игра: текстовый квест</option>
+     </select>
+     <input type="file" id="file">
+
+</div>
 
 
   <script>
 
-        document.querySelector('#light').addEventListener('change', e => {
-            console.log(e.target.value);
-            document.body.className = e.target.value;
-            window.frames['chat'].src = './chat.html?theme=light';
+        document.querySelector('#file').addEventListener('change', e => {
+            console.log(e.target.files[0]);
+            const file = e.target.files[0] || null;
+            if (file && file.type === 'application/json') {
+                dataRead(file)
+            } else {
+                alert('Неверный формат файла. Можно загружать только JSON файл сценария.');
+            }
         });
 
-        document.querySelector('#dark').addEventListener('change', e => {
-            console.log(e.target.value);
-            document.body.className = e.target.value;
-            window.frames['chat'].src = './chat.html?theme=dark';
+        const dataRead = (file) => {
+            const reader = new FileReader();
+            reader.onload = function(event) {
+                const contents = JSON.parse(event.target.result) || null;
+                contents && window['chat'].sberCare.setBotScenario(contents);
+            };
+            
+            reader.onerror = function(event) {
+                console.error("Файл не может быть прочитан! код " + event.target.error.code);
+            };
+            
+            reader.readAsText(file);
+        }
+
+        document.querySelector('#presets').addEventListener('change', e => {
+            fetch(e.target.value)
+                .then((response) => {
+                    return response.json();
+                })
+                .then((data) => {
+                    window['chat'].sberCare.setBotScenario(data);
+                });
         });
+
+        // document.querySelector('#dark').addEventListener('change', e => {
+        //     console.log(e.target.value);
+        //     document.body.className = e.target.value;
+        //     window.frames['chat'].src = './chat.html?theme=dark';
+        // });
 
       
   </script>

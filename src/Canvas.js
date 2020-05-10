@@ -24,7 +24,8 @@ export default class Canvas {
     }
 
     create(x, y, label = this.lang.nodeLabelDefault) {
-        const id = jsPlumbUtil.uuid();
+        //const id = jsPlumbUtil.uuid();
+        const id = Math.floor(1000 + Math.random() * 9000);
         const nodeExist = canvas.querySelectorAll('.node').length;
         let type = 'start';
         if (nodeExist) type = 'text';
