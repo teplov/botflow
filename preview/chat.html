@@ -24,6 +24,9 @@
             animation: none;
             -webkit-animation: none;
         } */
+        ::-webkit-scrollbar {
+            display: none;
+        }
     </style>
 </head>
 <body>
@@ -89,52 +92,6 @@ dictionary: {
 }
 });
 
-
-
-
-
-
-    //     window.retailChat.init({
-    //         mountContainerId: 'chat_div', // ссылка на id-элемент контейнера чата
-    //         mainBundlePath: './2.1.7/', // путь к основному файлу виджета чата main_bundle_chat.min.js
-    //         domain: 'sberminor.ru', // доменное имя, по умолчанию берется значение location.host. Позволяет запустить чаты на тестовом сервере
-    //         applicationName: "sberCare", // имя глобального JS-объекта для вызова методов фронтального API, по умолчанию retailChat
-    //         theme: {
-    //             name: params.theme || 'default' // "default" | "light" | "dark"
-    //         },
-    //         startForm: 'Chat',
-    //         headerIsEnabled: false,
-    //         firstMessage: { // Текст первого сообщения в чате
-    //             enable: true,
-    //             format: 'plain', // plain | markdown // формат оформления текста
-    //             text:   'Здравствуйте! Вас приветствует помощник акционера Сбербанка, чем я могу помочь?',
-    //             suggestions: [{
-    //                 text: 'ГОСА',
-    //                 order_id: 0
-    //             }, {
-    //                 text: 'Дивиденды',
-    //                 order_id: 1
-    //             },{
-    //                 text: 'Стоимость акций',
-    //                 order_id: 2
-    //             },
-    //             {
-    //                 text: 'Как купить акции?',
-    //                 order_id: 3
-    //             },
-    //             {
-    //                 text: 'Чистая прибыль',
-    //                 order_id: 4
-    //             }]
-    //         },
-    //         dictionary: {
-    //             headerTitle: "Помощник акционера",
-    //             connectionError: "Пожалуйста, обратитесь в контактный центр, позвоните по номеру 8 (800) 500 87 43",
-    //             botName: "Помощник акционера Сбербанка"
-    //         },
-    //         apiRestUrl: 'https://messenger.sberbank.ru:7766/api/device', // путь для подключения к REST-серверу сообщений Сбербанка
-    //         apiWSUrl: 'wss://messenger.sberbank.ru:7766/api/', // путь для подключения к WebSocket-серверу сообщений Сбербанка
-    //     });
 
         
       function setUserAgent(window, userAgent) {

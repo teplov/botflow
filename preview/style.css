@@ -86,4 +86,5 @@ BODY.dark #iphone {
     border: none;
     /* border: 1px solid red; */
     transform: scale(1);
+    overflow: hidden;
 }
