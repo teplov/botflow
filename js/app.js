@@ -101,7 +101,7 @@ jsPlumb.ready(() => {
     });
 
     instance.bind("click", (i) => {
-        console.log('Con');
+        //console.log('Con');
         instance.Conn.select(i);
         Config.toolbar.info.innerText = `Connection: ${i.sourceId} -> ${i.targetId}`;
     });
@@ -155,26 +155,32 @@ jsPlumb.ready(() => {
         const uuid = Math.floor(1000 + Math.random() * 9000);
         switch(type) {
             case 'text':
+                instance.TextNode = new TextNode(window.canvas, instance);
                 instance.TextNode.create(uuid, x, y);
                 window.currentNodeType = 'text';
                 break;
             case 'video':
+                instance.VideoNode = new VideoNode(window.canvas, instance);
                 instance.VideoNode.create(uuid, x, y);
                 window.currentNodeType = 'video';
                 break;
             case 'link':
+                instance.LinkNode = new LinkNode(window.canvas, instance);
                 instance.LinkNode.create(uuid, x, y);
                 window.currentNodeType = 'link';
                 break;
             case 'anchor':
+                instance.AnchorNode = new AnchorNode(window.canvas, instance);
                 instance.AnchorNode.create(uuid, x, y);
                 window.currentNodeType = 'anchor';
                 break;
             case 'widget':
+                instance.WidgetNode = new WidgetNode(window.canvas, instance);
                 instance.WidgetNode.create(uuid, x, y);
                 window.currentNodeType = 'widget';
                 break;
             default:
+                instance.StartNode = new StartNode(window.canvas, instance);
                 instance.StartNode.create(uuid, x, y);
                 window.currentNodeType = 'text';
         }
