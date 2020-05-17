@@ -146,7 +146,7 @@ jsPlumb.ready(() => {
 
     const setCurrentNodeType = (type, x = 20, y = 20) => {
         const nodeExist = canvas.querySelectorAll('.node').length;
-        console.log(nodeExist);
+        //console.log(nodeExist);
         if (!nodeExist) {
             window.currentNodeType = type = 'start';
         } else if (nodeExist && window.currentNodeType === 'start') {
