@@ -30,6 +30,10 @@ export default class Connector extends Canvas {
         }
     }
 
+    deselect() {
+        this._deselect();
+    }
+
     delete() {
         this.instance.deleteConnection(this.selected);
     }

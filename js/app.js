@@ -101,7 +101,7 @@ jsPlumb.ready(() => {
     });
 
     instance.bind("click", (i) => {
-        //console.log('Con');
+        //console.log('Con', i);
         instance.Conn.select(i);
         Config.toolbar.info.innerText = `Connection: ${i.sourceId} -> ${i.targetId}`;
     });
@@ -112,7 +112,6 @@ jsPlumb.ready(() => {
         instance.Report.create();
         amplitude.getInstance().logEvent('Create connection');
     });
-
 
     // проверяем, есть ли коннект между нодами, которые пытается соединить юзер
     instance.bind('beforeDrop', (i,e) => {
@@ -132,9 +131,18 @@ jsPlumb.ready(() => {
         }
     });
 
+    instance.on(canvas, "click", (e) => {
+        // проверяем, что кликаем по пустому холсту, а не по элементам
+        if (e.target.id == canvas.id) {
+            // console.log('Con, deselect', e);
+            instance.Conn.deselect();
+        }
+    });
+
     canvas.addEventListener('click', (e) => { 
         if (e.target === window.canvas) {
             instance.Canvas._deselect();
+            Config.toolbar.info.innerText = ``;
         }
     });
 

@@ -2,7 +2,7 @@ window.sberCareChat.init({
     mode: 'full',
     withBot: true,
     jsonSrc: '/data/json/',
-    botScenarioUrl: '/data/json/trouble.json',   
+    // botScenarioUrl: '/data/json/trouble.json',   
     crossOrigin: true,
     videoSrc: '/data/video/', 
     videoQuality: 'sd',
@@ -17,7 +17,8 @@ headerIsEnabled: false,
 domain: "test2.sberbank.ru", // по умолчанию location.host
 applicationName: "sberCare",
 firstMessage: {
-    enable: true,
+    enable: false,
+    text:   'Здравствуйте! Я виртуальный помощник. С радостью отвечу на ваши вопросы!',
     format: 'markdown', // plain | markdown
 },
 apiRestUrl: 'https://messenger-t.sberbank.ru/api/device',
