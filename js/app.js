@@ -268,7 +268,7 @@ jsPlumb.ready(() => {
         Config.ui.preview.classList.toggle('visible');
         if (Config.ui.preview.classList.contains('visible')) {
             instance.Report.create();
-            window.sberCare.setBotScenario(instance.Report.data);
+            window.sberCareChat.setBotScenario(instance.Report.data);
             amplitude.getInstance().logEvent('Chat Preview');
         } 
     });

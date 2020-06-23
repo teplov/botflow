@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>ChatbotFlow</title>
+    <link rel="stylesheet" href="/css/uikit.min.css" />
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/preview/style.css">
+    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css"> -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intro.js/2.9.3/introjs.min.css">
+</head>
+<body>
+    <script src="/js/jsplumb.min.js"></script>   
+    <script src="/js/uikit.min.js"></script>
+    <script src="/js/uikit-icons.min.js"></script> 
+    <script src="/js/ds.min.js"></script> 
+    <script src="https://sbchat.netlify.app/dist/3.1.3/loader_bundle_chat.min.js"></script>
+    <!-- <script src="/preview/3.1.3/loader_bundle_chat.min.js"></script> -->
+    <script src="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/intro.js/2.9.3/intro.min.js"></script>
+    
+
+<nav id="toolbar" class="uk-navbar-container"  uk-navbar>
+    <div class="uk-navbar-left">
+        <button class="blank uk-button uk-button-default uk-button-small" title="Create new flow" data-hint="Создать новый сценарий" data-hintPosition="bottom-middle"><span uk-icon="icon: file"></span></button>
+        <button class="load uk-button uk-button-default uk-button-small" title="Load flow from file" data-hint="Загрузить сценарий из файла" data-hintPosition="bottom-middle"><label for="file" uk-icon="icon: folder"></label for="file"></button>
+        <button class="export uk-button uk-button-default uk-button-small" title="Save flow to file" data-hint="Сохранить сценарий в JSON-файл" data-hintPosition="bottom-middle"><span uk-icon="icon: cloud-download"></span></button>
+        <span class="filename uk-text-light uk-text-large uk-padding-small uk-padding-remove-top uk-padding-remove-bottom uk-text-truncate uk-visible@m" contenteditable="true" data-hint="Имя файла сценария. Щелкните по названию, чтобы его изменить." data-hintPosition="bottom-right">ChatbotFlow</span>
+    </div>
+    <div class="uk-navbar-center">
+        <button class="add uk-button uk-button-default uk-button-small" title="Select node type"><span uk-icon="icon: plus"></span></button>        
+        <div uk-dropdown class="uk-padding-small">
+            <ul class="add-type uk-nav uk-dropdown-nav">
+                <li><a href="#" data-type="text" class="add_text uk-link-text" title="Add new text node"><span class="uk-margin-right" uk-icon="icon: commenting"></span> Text</a></li>
+                <li><a href="#" data-type="video" class="add_video uk-link-text" title="Add new video node"><span class="uk-margin-right" uk-icon="icon: play-circle"></span> Video</a></li>
+                <li><a href="#" data-type="anchor" class="add_anchor uk-link-text" title="Add new anchor node"><span class="uk-margin-right" uk-icon="icon: hashtag"></span> Anchor</a></li>
+                <li><a href="#" data-type="link" class="add_link uk-link-text" title="Add new link node"><span class="uk-margin-right" uk-icon="icon: link"></span> Link</a></li>
+                <li><a href="#" data-type="widget" class="add_widget uk-link-text" title="Add new widget node"><span class="uk-margin-right" uk-icon="icon: nut"></span> Widget</a></li>
+            </ul>
+        </div>
+        <button class="delete uk-button uk-button-default uk-button-small" title="Delete selected node"><span uk-icon="icon: close"></span></button>
+    </div>
+    <div class="uk-navbar-right">
+        <!-- <button class="lang uk-button uk-button-default uk-button-small">RU</button> -->
+        <button class="settings uk-button uk-button-default uk-button-small" title="Settings"><span uk-icon="icon: cog"></span></button>
+        <button class="preview uk-button uk-button-default uk-button-small" title="Emulate chat"><span uk-icon="icon: phone"></span></button>
+        <button class="codeview uk-button uk-button-default uk-button-small" title="Show JSON code"><span uk-icon="icon: code"></span></button>
+        <button class="help uk-button uk-button-default uk-button-small" title="Show help"><span uk-icon="icon: question"></span></button>
+    </div>
+</nav>
+<div id="workspace">
+    <div class="" id="canvas"></div>
+</div>
+<div id="zoomToolbar">
+    <div class="info left"></div>
+    <button class="zoomIn right">+</button>
+    <div class="zoomValue right">100%</div>
+    <button class="zoomOut right">-</button>
+</div>
+<pre id="output" class="sidebar"></pre>
+<div id="preview" class="sidebar">
+    <div id="chat_container"></div>
+</div>
+<div id="help" class="sidebar">
+    <textarea id="helpEd" cols="30" rows="10"></textarea>
+</div>
+<div id="hidden"><input type="file" id="file" name="files"></div>
+
+<div id="overlay" class="uk-overlay-dafault uk-position-cover">
+    <div class="uk-position-center uk-dark">
+        <div uk-spinner></div>
+    </div>
+</div>
+
+    <script type="module" src="/js/app.js"></script> 
+    <script src="/editor/config.js"></script>   
+
+    <script>
+        
+
+        // fetch('./data/help.md').then(response => response.text()).then(text => {
+        //     //simplemde.value(text)
+        //     var simplemde = new SimpleMDE({ 
+        //         element: document.getElementById("helpEd"),
+        //         toolbar: [],
+        //         initialValue: text,
+        //         previewRender: text,
+        //         autofocus: true,
+        //     });
+        //    // simplemde.togglePreview();
+        // });
+        
+    </script>
+
+    <script type="text/javascript">
+        (function(e,t){var n=e.amplitude||{_q:[],_iq:{}};var r=t.createElement("script")
+        ;r.type="text/javascript"
+        ;r.integrity="sha384-vYYnQ3LPdp/RkQjoKBTGSq0X5F73gXU3G2QopHaIfna0Ct1JRWzwrmEz115NzOta"
+        ;r.crossOrigin="anonymous";r.async=true
+        ;r.src="https://cdn.amplitude.com/libs/amplitude-5.8.0-min.gz.js"
+        ;r.onload=function(){if(!e.amplitude.runQueuedFunctions){
+        console.log("[Amplitude] Error: could not load SDK")}}
+        ;var i=t.getElementsByTagName("script")[0];i.parentNode.insertBefore(r,i)
+        ;function s(e,t){e.prototype[t]=function(){
+        this._q.push([t].concat(Array.prototype.slice.call(arguments,0)));return this}}
+        var o=function(){this._q=[];return this}
+        ;var a=["add","append","clearAll","prepend","set","setOnce","unset"]
+        ;for(var u=0;u<a.length;u++){s(o,a[u])}n.Identify=o;var c=function(){this._q=[]
+        ;return this}
+        ;var l=["setProductId","setQuantity","setPrice","setRevenueType","setEventProperties"]
+        ;for(var p=0;p<l.length;p++){s(c,l[p])}n.Revenue=c
+        ;var d=["init","logEvent","logRevenue","setUserId","setUserProperties","setOptOut","setVersionName","setDomain","setDeviceId", "enableTracking", "setGlobalUserProperties","identify","clearUserProperties","setGroup","logRevenueV2","regenerateDeviceId","groupIdentify","onInit","logEventWithTimestamp","logEventWithGroups","setSessionId","resetSessionId"]
+        ;function v(e){function t(t){e[t]=function(){
+        e._q.push([t].concat(Array.prototype.slice.call(arguments,0)))}}
+        for(var n=0;n<d.length;n++){t(d[n])}}v(n);n.getInstance=function(e){
+        e=(!e||e.length===0?"$default_instance":e).toLowerCase()
+        ;if(!n._iq.hasOwnProperty(e)){n._iq[e]={_q:[]};v(n._iq[e])}return n._iq[e]}
+        ;e.amplitude=n})(window,document);
+      
+        amplitude.getInstance().init("9a43d0cde7310a88f22075f2a8d0b33a");
+      </script>
+</body>
+</html> 
