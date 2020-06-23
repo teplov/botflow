@@ -27,14 +27,14 @@ window.sberCareChat.init({
     },
     Chat: {
         type: 'messanger',
-        name: 'Сбертелеком',
+        name: 'Чат',
         iconImgUrl: '', // если iconType: 'custom'
         //apiRestUrl: 'https://sbertele.com/chat_connect' + location.search, // => https://messenger-ift.sberbank.ru/api/device/prelogin/init_session
         apiRestUrl: 'https://messenger-t.sberbank.ru/api/device/auth_prelogin' + location.search, // IFT- messenger-ift.sberbank.ru, PSI- messenger-t.sberbank.ru PROM- messenger.sberbank.ru
         apiWSUrl: 'wss://messenger-t.sberbank.ru/api/', // IFT- messenger-ift.sberbank.ru, PSI- messenger-t.sberbank.ru PROM- messenger.sberbank.ru
         isNewOperatorPlace: false,
         firstMessage: {
-            text: 'Здравствуйте! Здесь вы можете задать общие вопросы по продуктам и услугам СберТелеком',
+            text: 'Здравствуйте! Здесь вы можете задать общие вопросы по продуктам и услугам',
             suggestions: [{
                 text: 'Что нового?',
                 order_id: 0
@@ -52,8 +52,8 @@ window.sberCareChat.init({
         initTimeout: 30,
         suggestionShowTime: 60,
         dictionary: {
-            headerTitle: 'Связь с банком',
-            botName: 'Помощник от Сбертелеком',
+            headerTitle: 'Чат поддержки',
+            botName: 'Помощник',
             inputPlaceholder: 'Напишите сообщение...',
             techBreakTitle: 'На данный момент отправка сообщений невозможна',
             techBreakText: 'Попробуйте зайти позже',
@@ -63,9 +63,16 @@ window.sberCareChat.init({
     Bot: {
         type: 'chatBotFlow',
         name: 'Ответы на частые вопросы',
-        //iconImgUrl: 'http://localhost:8080/data/consultant.png', // если iconType: 'custom'
+        iconImgUrl: '/data/ava.png', // если iconType: 'custom'
         crossOrigin: true,
         //botScenarioName: 'default.json',
         jsonSrc: '/data/json/sample/',
+        dictionary: {
+            headerTitle: 'Чат поддержки',
+            botName: 'Помощник',
+            inputPlaceholder: 'Напишите сообщение...',
+            techBreakTitle: 'На данный момент отправка сообщений невозможна',
+            techBreakText: 'Попробуйте зайти позже',
+        },
     },
 });
