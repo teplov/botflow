@@ -7,21 +7,24 @@ export default class Node {
         this.node = null;
         this.container = container;
         this.type = null;
+        this.nodeName = null;
         this.instance = instance;
         this.modal = new Modal();
         this.data = null;
     }
 
-    create(id, x = 20, y = 20, data) {
+    create(id, x = 20, y = 20, data, nodeName) {
         this.id = id;
         this.data = data;
         this.node = document.createElement("div");
         this.node.className = "node";
         this.node.id = this.id;
+        this.nodeName = nodeName || null;
         this.node.style.left = `${x}px`;
         this.node.style.top = `${y}px`;
         this.node.dataset.id = this.id;
         this.node.dataset.type = this.type;
+        this.node.dataset.nodeName = this.nodeName;
         this.node.classList.add('node_' + Config.labelColor[this.type], 'deselected');
         
         canvas.appendChild(this.node);
@@ -47,6 +50,7 @@ export default class Node {
 
     save(data) {
         this.data = data;
+        this.node.dataset.nodeName = this.nodeName;
         this.node.dataset.data = JSON.stringify(data);
         this.instance.Report.create();
         this.instance.repaintEverything();

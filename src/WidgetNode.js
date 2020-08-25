@@ -13,8 +13,8 @@ export default class WidgetNode extends Node {
         };
     }
 
-    create(id, x, y, data = this.defaultData) {
-        super.create(id, x, y, data);
+    create(id, x, y, data = this.defaultData, nodeName) {
+        super.create(id, x, y, data, nodeName);
         this.node.dataset.data = JSON.stringify(this.data);
         this.node.appendChild(this._createLabel());
         this._addEndpoints(this.node, ['BottomCenter'], ["TopCenter"]);
@@ -49,6 +49,9 @@ export default class WidgetNode extends Node {
             <h2 class="uk-modal-title">Widget node</h2>
         </div>
         <div id="body" class=" uk-modal-body">
+                <label class="uk-text-meta" for="nodeName">Название блока</label>
+                <input class="uk-input" id="nodeName" type="text" placeholder="" value="${this.nodeName}">   
+                <br><br> 
                 <label class="uk-text-meta" for="endpoint">Endpoint</label>
                 <input class="uk-input" id="endpoint" type="text" placeholder="Адрес виджета" value="${this.data.endpoint}">   
                 <br><br> 
@@ -67,6 +70,7 @@ export default class WidgetNode extends Node {
             const editModal = e.target;
             editModal.querySelector("#editor_save").addEventListener('click', (e) => {
                 let data = {};
+                this.nodeName = editModal.querySelector('#nodeName').value;
                 data.endpoint = editModal.querySelector('#endpoint').value;
                 data.file = editModal.querySelector('#file').value;
                 data.params = editModal.querySelector('#params').value;

@@ -7,12 +7,12 @@ window.sberCareChat.init({
     videoSrc: '/data/video/', 
     videoQuality: 'sd',
     startForm: "Chat", // 'Chat' | 'Icon'
-    mainBundlePath: "./preview/2.1.7/",
+    mainBundlePath: "./preview/2.1.8/",
     mountContainerId: 'chat_container',
     theme: {
         name: 'default' // "default" | "light" | "dark"
     },
-chatVersion: '2.1.7',
+chatVersion: '2.1.8',
 headerIsEnabled: false,
 domain: "test2.sberbank.ru", // по умолчанию location.host
 applicationName: "sberCare",

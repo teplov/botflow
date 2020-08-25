@@ -16,7 +16,9 @@ export default class Report {
             this.JSON.data[el.dataset.id] = {
                 id: el.dataset.id,
                 //data: el.firstChild.innerText,
-                data: el.dataset.data ? JSON.parse(el.dataset.data) : el.querySelector('.node_label').innerText,
+                //data: el.dataset.data ? JSON.parse(el.dataset.data) : el.querySelector('.node_label').innerText,
+                data: JSON.parse(el.dataset.data),
+                nodeName: el.dataset.nodeName || null,
                 type: el.dataset.type,
                 suggestions: [],
                 x: parseInt(el.style.left, 10),

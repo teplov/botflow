@@ -74,7 +74,7 @@ jsPlumb.ready(() => {
         jsPlumb.batch(function() {
             for (let i in data) {
                 const item = data[i];
-                instance.Canvas.load(item.id, item.data || item.text, item.type, item.x, item.y);
+                instance.Canvas.load(item.id, item.data || item.text, item.type, item.x, item.y, item.nodeName);
             }
 
             for (let i in data) {

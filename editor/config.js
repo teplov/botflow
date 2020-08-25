@@ -2,7 +2,7 @@ window.sberCareChat.init({
     startForm: 'Bot', // 'Chat' | 'Icon' | 'Bot' | 'Elena' | 'Conversations'
     conversations: ['Bot'], //каждый должен быть описан в конфиге | 'Elena'
     applicationName: 'sberCareChat', // для вызова публичных методов
-    mainBundlePath: 'https://sbchat.netlify.app/dist/3.1.3/',// путь до js файла
+    mainBundlePath: 'https://sbchat.netlify.app/dist/4.0.3/',// путь до js файла
     mountContainerId: 'chat_container', // id контейнера для рендера чата
     size: {
         width: '330px', // string
@@ -67,6 +67,9 @@ window.sberCareChat.init({
         crossOrigin: true,
         //botScenarioName: 'default.json',
         jsonSrc: '/data/json/sample/',
+        videoSrc: '/data/video/', 
+        //videoSrc: 'https://messenger-ift.sberbank.ru:8877/api/public/media/getVideo/', 
+        videoQuality: 'sd',
         dictionary: {
             headerTitle: 'Чат поддержки',
             botName: 'Помощник',

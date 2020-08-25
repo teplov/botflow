@@ -32,39 +32,39 @@ export default class Canvas {
         this._createNode(id, x, y, label, type);
     }
 
-    load(id, data, type, x = 20, y = 20) {
-        this._createNode(id, x, y, data, type);
+    load(id, data, type, x = 20, y = 20, nodeName = null) {
+        this._createNode(id, x, y, data, type, nodeName);
     }
 
-    _createNode(id, x, y, data, type) { 
+    _createNode(id, x, y, data, type, nodeName) { 
         if (type == 'start') {
             this.nodes[id] = new StartNode(this.instance.getContainer(), this.instance);
-            this.nodes[id].create(id, x, y, data);
+            this.nodes[id].create(id, x, y, data, nodeName);
         } 
 
         if (type == 'text') {
             this.nodes[id] = new TextNode(this.instance.getContainer(), this.instance);
-            this.nodes[id].create(id, x, y, data);
+            this.nodes[id].create(id, x, y, data, nodeName);
         } 
 
         if (type == 'video') {
             this.nodes[id] = new VideoNode(this.instance.getContainer(), this.instance);
-            this.nodes[id].create(id, x, y, data);
+            this.nodes[id].create(id, x, y, data, nodeName);
         }
 
         if (type == 'link') {
             this.nodes[id] = new LinkNode(this.instance.getContainer(), this.instance);
-            this.nodes[id].create(id, x, y, data);
+            this.nodes[id].create(id, x, y, data, nodeName);
         }
 
         if (type == 'anchor') {
             this.nodes[id] = new AnchorNode(this.instance.getContainer(), this.instance);
-            this.nodes[id].create(id, x, y, data);
+            this.nodes[id].create(id, x, y, data, nodeName);
         }
 
         if (type == 'widget') {
             this.nodes[id] = new WidgetNode(this.instance.getContainer(), this.instance);
-            this.nodes[id].create(id, x, y, data);
+            this.nodes[id].create(id, x, y, data, nodeName);
         }
 
         //this._addEndpoints(id, ['BottomCenter'], ["TopCenter"]);
