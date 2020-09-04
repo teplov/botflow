@@ -12,8 +12,8 @@ export default class VideoNode extends Node {
         };
     }
 
-    create(id, x, y, data = this.defaultData) {
-        super.create(id, x, y, data);
+    create(id, x, y, data = this.defaultData, nodeName) {
+        super.create(id, x, y, data, nodeName);
         this.node.dataset.data = JSON.stringify(this.data);
         this.node.appendChild(this._createLabel());
         this._addEndpoints(this.node, ['BottomCenter'], ["TopCenter"]);
@@ -49,6 +49,9 @@ export default class VideoNode extends Node {
             <h5 class="uk-margin-remove-top">id: ${this.id}</h5>
         </div>
         <div id="body" class=" uk-modal-body">
+            <label class="uk-text-meta" for="nodeName">Название блока</label>
+            <input class="uk-input" id="nodeName" type="text" placeholder="" value="${this.nodeName}">   
+            <br><br>
             <label class="uk-text-meta" for="file_video">Имя файла</label>
             <input class="uk-input" id="file_video" type="text" placeholder="Имя файла" value="${this.data.file}">   
             <br><br> 
@@ -65,6 +68,7 @@ export default class VideoNode extends Node {
             const editModal = e.target;
             editModal.querySelector("#editor_save").addEventListener('click', (e) => {
                 let data = {};
+                this.nodeName = editModal.querySelector('#nodeName').value;
                 data.file = editModal.querySelector('#file_video').value;
                 data.text = window.mdEditor.value();
                 this.save(data);
