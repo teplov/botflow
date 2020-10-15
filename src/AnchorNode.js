@@ -24,7 +24,7 @@ export default class AnchorNode extends Node {
     _createLabel() {
         const nodeLabel = document.createElement('span');
         nodeLabel.className = 'node_label';
-        nodeLabel.innerHTML = `${this.data.file}@${this.data.target}`;
+        nodeLabel.innerHTML = `${this.data.target}<br>${this.data.file}`;
         return nodeLabel
     }
 

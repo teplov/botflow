@@ -207,7 +207,7 @@ jsPlumb.ready(() => {
     });
 
     Config.toolbar.addType.addEventListener('click', (e) => {
-        window.currentNodeType = e.target.dataset.type;
+        window.currentNodeType = e.target.dataset.type || e.target.parentNode.parentNode.dataset.type;
         Config.toolbar.add.innerHTML = `<span uk-icon="icon: ${Config.labelIcon[window.currentNodeType]}"></span>`;
         //setCurrentNodeType(e.target.dataset.type);
     });

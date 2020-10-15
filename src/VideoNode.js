@@ -49,13 +49,13 @@ export default class VideoNode extends Node {
             <h5 class="uk-margin-remove-top">id: ${this.id}</h5>
         </div>
         <div id="body" class=" uk-modal-body">
-            <label class="uk-text-meta" for="nodeName">Название блока</label>
-            <input class="uk-input" id="nodeName" type="text" placeholder="" value="${this.nodeName}">   
-            <br><br>
-            <label class="uk-text-meta" for="file_video">Имя файла</label>
-            <input class="uk-input" id="file_video" type="text" placeholder="Имя файла" value="${this.data.file}">   
-            <br><br> 
-            <textarea id="mde_video">${this.data.text}</textarea>
+        <label class="uk-text-meta" for="file_video">Имя файла</label>
+        <input class="uk-input" id="file_video" type="text" placeholder="Имя файла" value="${this.data.file}">   
+        <br><br>
+        <textarea id="mde_video">${this.data.text}</textarea>
+        <br> 
+        <label class="uk-text-meta" for="nodeName">Название блока (опция)</label>
+        <input class="uk-input" id="nodeName" type="text" placeholder="" value="${this.nodeName}">   
         </div>
         <div class="uk-modal-footer uk-text-right">
             <button class="uk-button uk-button-default uk-modal-close" type="button">Cancel</button>

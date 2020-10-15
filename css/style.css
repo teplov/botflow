@@ -265,6 +265,11 @@ BODY {
     display: inline-table;
 }
 
+.node_label {
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
 .label_blue, .node_blue {
     background-color: #1976d3;
 }
