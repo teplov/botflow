@@ -2,7 +2,7 @@ window.sberCareChat.init({
     startForm: 'Bot', // 'Chat' | 'Icon' | 'Bot' | 'Elena' | 'Conversations'
     conversations: ['Bot'], //каждый должен быть описан в конфиге | 'Elena'
     applicationName: 'sberCareChat', // для вызова публичных методов
-    mainBundlePath: 'https://sbchat.netlify.app/dist/4.0.12/',// путь до js файла
+    mainBundlePath: 'https://sbchat.netlify.app/dist/latest/',// путь до js файла
     mountContainerId: 'retailChat-container', // id контейнера для рендера чата
     headerIsEnabled: true,
     chatEnabled: true,
